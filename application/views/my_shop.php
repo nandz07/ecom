@@ -104,7 +104,7 @@
 													?></p>
 													
 								<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-primary" style="    margin: 10px;">more</a>
-								<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to cart</a>
+								<a href="<?php echo base_url('welcome/cart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to cart</a>
 							</div>
 						</div>
 

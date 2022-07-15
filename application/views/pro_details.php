@@ -46,45 +46,53 @@
     </div>
   </nav>
   <form method="post" action="">
-    <div class="col-md-2 " style="
+    <div class="col-md-4 " style="
     margin: auto;
     padding-top: 20px;
     display: flex;">
-      <div class="col-md-8">
+      <div class="col-md-8 " style="
+    border: 10px solid #f5e2e6;
+    border-radius: 8%; padding: 20px 30px;">
         <div class="row">
-          <h2 class="text-center">Products</h2>
+
           <?php
           foreach ($data as $products)
           ?>
 
 
-          <?php
-        echo $products->title;
-          ?>
+
 
           <div class="col-mod-5">
             <h4 style="
     color: crimson;
     font-family: cursive;"><?php
-                            echo $products->title;
+                          echo $products->title;
                             ?></h4>
             <img src='<?php echo base_url("$products->image"); ?>' alt="" width="200" height="200">
+            <p class="lprce">Rs <?php
+                                echo $products->price;
+                                ?> </p>
+                                <h4></h4>
+                                <h4 style="
+    color: crimson;
+    font-family: cursive;">Product From : <?php
+                          echo $products->brandname;
+                            ?></h4>
+            <p class="details" style="font-family: monospace;"><?php
+                                                                echo $products->description;
+                                                                ?> </p>
+            <button class="example"><a href="<?php echo base_url() . 'welcome/'  ?>">Home</button>
           </div>
-          <p class="lprce">Rs <?php
-                              echo $products->price;
-                              ?> </p>
+          <br><br>
+          <hr>
+
           <input type="hidden" name="id" value=<?php
 
                                                 echo $products->id;
 
                                                 ?>>
-          <h4><?php
-              echo $products->title;
-              ?></h4>
-          <p class="details" style="font-family: monospace;"><?php
-                              echo $products->description;
-                              ?> </p>
-          <button class="example"><a href="<?php echo base_url() . 'welcome/'  ?>">Home</button>
+
+
 
         </div>
       </div>

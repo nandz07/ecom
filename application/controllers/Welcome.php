@@ -386,4 +386,5 @@ class Welcome extends CI_Controller
 <?php
 		}
 	}
+	//.................cart..........
 }
