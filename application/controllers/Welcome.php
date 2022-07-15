@@ -21,6 +21,7 @@ class Welcome extends CI_Controller
 	 */
 	public function index()
 	{
+		session_start();
 		$sql = "select * from products";
 		//var_dump("hai");
 		$query = $this->db->query($sql);
@@ -81,6 +82,7 @@ class Welcome extends CI_Controller
 	}
 	public function user_check()
 	{
+		session_start();
 		$firstName = $this->input->post("firstName");
 		$password = $this->input->post("password");
 
@@ -89,27 +91,59 @@ class Welcome extends CI_Controller
 		$this->db->where("firstName", $firstName);
 		$this->db->where("password", $password);
 		$query = $this->db->get("");
-		$num = $query->num_rows();
-		if ($num > 0) {
-?>
-			<script>
-				alert("login successful");
-				window.location.href = '<?php echo base_url('welcome'); ?>'
-			</script>
+		$res = $query->result();
 
+
+		$db_firstName = NULL;
+		$db_password = NULL;
+
+
+		foreach ($res as $details) {
+			$db_firstName = $details->firstName;
+			$db_password = $details->password;
+		}
+
+
+
+
+		if (isset($_SESSION['username'])) {
+		?>
+			<script>
+				alert("you didn't logout")
+				window.location.href = "<?php echo base_url('welcome/') ?>";
+			</script>
+		<?php
+		} elseif ($db_firstName == $firstName && $db_password == $password) {
+			$_SESSION['username'] = $db_firstName;
+		?>
+			<script>
+				alert("login sucess")
+				window.location.href = "<?php echo base_url('welcome/') ?>";
+			</script>
 		<?php
 		} else {
 		?>
 			<script>
-				alert("invalid user name or password");
-				window.location.href = '<?php echo base_url('welcome/login'); ?>'
+				alert("Invalid user name or pasword !")
+				window.location.href = "<?php echo base_url('welcome/login') ?>";
 			</script>
-
 		<?php
 		}
 	}
 
-
+	public function userLogout()
+	{
+		session_start();
+		if (isset($_SESSION['username'])) {
+			session_destroy();
+		?>
+			<script>
+				alert("Logout successfully !")
+				window.location.href = "<?php echo base_url('welcome/') ?>";
+			</script>
+		<?php
+		}
+	}
 	// $res = $query->result();
 	// var_dump($res);
 	// $data['data']=$res;
@@ -126,6 +160,7 @@ class Welcome extends CI_Controller
 	// 		alert("user name or password is inncorrect")
 	// 		window.location.href = '<-?php echo base_url('welcome/login'); ?=>'
 	// 	</script>
+	
 	public function admin()
 	{
 		$this->load->view("admin");

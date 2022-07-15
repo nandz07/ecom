@@ -36,19 +36,43 @@
 						<a class="dropdown-item" href="<?php echo base_url('welcome/mobile/'); ?>">Mobile Phone</a>
 					</div>
 				</li>
+				<li class="nav-item active">
+					<?php
+
+					if (isset($_SESSION['username'])) {
+
+					?>
+
+						<a class="nav-link" href="<?php echo base_url('welcome/userLogout'); ?>">Logout<span class="sr-only">(current)</span></a>
+					<?php
+					}
+					?>
+
+				</li>
 
 			</ul>
 
 			<form class="form-inline my-2 my-lg-0">
 				<ul>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Login</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="<?php echo base_url('welcome/login/'); ?>">Log in </a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="<?php echo base_url('welcome/signup/'); ?>">sign up</a>
-						</div>
+						<?php
+
+						if (isset($_SESSION['username'])) {
+
+						?>
+
+							<a class="nav-link" href=""><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
+						<?php
+						} else {
+						?>
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Login</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="<?php echo base_url('welcome/login/'); ?>">Log in </a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="<?php echo base_url('welcome/signup/'); ?>">sign up</a>
+							</div>
+						<?php } ?>
 					</li>
 				</ul>
 
