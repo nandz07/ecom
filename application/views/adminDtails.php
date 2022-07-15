@@ -52,9 +52,22 @@
                         <a class="dropdown-item" href="<?php echo base_url('welcome/mobile/'); ?>">Mobile Phone</a>
                     </div>
                 </li>
+                <li class="nav-item active">
+                    <?php
 
+                    if (isset($_SESSION['uname'])) {
+
+                    ?>
+
+                        <a class="nav-link" href="<?php echo base_url('welcome/adminLogout'); ?>">Logout<span class="sr-only">(current)</span></a>
+                    <?php
+                    }
+                    ?>
+
+                </li>
 
             </ul>
+
 
         </div>
     </nav>
@@ -96,7 +109,7 @@
                 }
                 ?>
 
-<a class="button" title="Edit" data-toggle="tooltip" href="<?php echo base_url('welcome/insertView')?>">Insert New</a>
+                <a class="button" title="Edit" data-toggle="tooltip" href="<?php echo base_url('welcome/insertView') ?>">Insert New</a>
 
             </tbody>
         </table>

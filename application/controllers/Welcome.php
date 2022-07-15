@@ -132,45 +132,87 @@ class Welcome extends CI_Controller
 	}
 	public function adminLogin()
 	{
-
+		session_start();
 		$firstName = $this->input->post("firstName");
 		$password = $this->input->post("password");
 
-		$sql = "select * from admin where firstName='$firstName' and password='$password'";
-		$query = $this->db->Query($sql);
+		$this->db->select("*");
+		$this->db->from("admin");
+		$this->db->where("firstName", $firstName);
+		$this->db->where("password", $password);
+		$query = $this->db->get("");
 		$res = $query->result();
-		//var_dump($res);
-		$num = $query->num_rows();
 
 
-		if ($num > 0) {
+		$db_firstName = NULL;
+		$db_password = NULL;
+
+
+		foreach ($res as $details) {
+			$db_firstName = $details->firstName;
+			$db_password = $details->password;
+		}
+
+
+
+
+		if (isset($_SESSION['uname'])) {
 		?>
 			<script>
-				alert("Welcome to admin panel");
-				window.location.href = '<?php echo base_url('welcome/adminDtails'); ?>'
+				alert("you didn't logout")
+				window.location.href = "<?php echo base_url('welcome/adminDtails') ?>";
 			</script>
-
+		<?php
+		} elseif ($db_firstName == $firstName && $db_password == $password) {
+			$_SESSION['uname'] = $db_firstName;
+		?>
+			<script>
+				alert("login sucess")
+				window.location.href = "<?php echo base_url('welcome/adminDtails') ?>";
+			</script>
 		<?php
 		} else {
 		?>
 			<script>
-				alert("invalid user name or password");
-				window.location.href = '<?php echo base_url('welcome/admin'); ?>'
+				alert("Invalid user name or pasword !")
+				window.location.href = "<?php echo base_url('welcome/admin') ?>";
 			</script>
-
 		<?php
 		}
-		//$this->load->view("adminDtails");
 	}
 	public function adminDtails()
 	{
+		session_start();
+
 		$sql = "select * from products";
 
 		$query = $this->db->query($sql);
 		$ans = $query->result();
 		$data["data"] = $ans;
 
-		$this->load->view('adminDtails', $data);
+		if ($_SESSION['uname'] != NULL) {
+			$this->load->view('adminDtails', $data);
+		} else {
+		?>
+			<script>
+				alert("enter username and password")
+				window.location.href = "<?php echo base_url('welcome/admin') ?>";
+			</script>
+		<?php
+		}
+	}
+	public function adminLogout()
+	{
+		session_start();
+		if (isset($_SESSION['uname'])) {
+			session_destroy();
+		?>
+			<script>
+				alert("Logout successfully !")
+				window.location.href = "<?php echo base_url('welcome/admin') ?>";
+			</script>
+		<?php
+		}
 	}
 	public function edit($id)
 	{
@@ -179,7 +221,18 @@ class Welcome extends CI_Controller
 		$query = $this->db->query($sql);
 		$ans = $query->result();
 		$data["data"] = $ans;
-		$this->load->view("edit_products", $data);
+
+		session_start();
+		if ($_SESSION['uname'] != NULL) {
+			$this->load->view("edit_products", $data);
+		} else {
+		?>
+			<script>
+				alert("enter username and password")
+				window.location.href = "<?php echo base_url('welcome/admin') ?>";
+			</script>
+		<?php
+		}
 	}
 	public function editResult()
 	{
@@ -225,56 +278,75 @@ class Welcome extends CI_Controller
 	}
 	public function insertView()
 	{
-
-		$this->load->view("insert_view");
+		session_start();
+		if ($_SESSION['uname'] != NULL) {
+			$this->load->view("insert_view");
+		} else {
+		?>
+			<script>
+				alert("enter username and password")
+				window.location.href = "<?php echo base_url('welcome/admin') ?>";
+			</script>
+			<?php
+		}
 	}
 	public function insert()
 	{
 
-		$file_name = $_FILES['myfile']['name'];
-		$tem = $_FILES['myfile']['tmp_name'];
-		$new_file_name = time() . $file_name;
-		move_uploaded_file($tem, 'images/' . $new_file_name);
+		session_start();
+		if ($_SESSION['uname'] != NULL) {
+			$file_name = $_FILES['myfile']['name'];
+			$tem = $_FILES['myfile']['tmp_name'];
+			$new_file_name = time() . $file_name;
+			move_uploaded_file($tem, 'images/' . $new_file_name);
 
-		$title = $this->input->post("title");
-		$price = $this->input->post("price");
-		$brandname = $this->input->post("brandname");
-		$image = $this->input->post("image");
-		$description = $this->input->post("description");
-		$featured = $this->input->post("featured");
+			$title = $this->input->post("title");
+			$price = $this->input->post("price");
+			$brandname = $this->input->post("brandname");
+			$image = $this->input->post("image");
+			$description = $this->input->post("description");
+			$featured = $this->input->post("featured");
 
-		$new = [
-			"title" => $title,
-			"price" => $price,
-			"brandname" => $brandname,
-			"image" => 'images/' . $new_file_name,
-			"description" => $description,
-			"featured" => $featured
-		];
-		$res = $this->db->insert("products", $new);
-		if ($res) {
-		?>
+			$new = [
+				"title" => $title,
+				"price" => $price,
+				"brandname" => $brandname,
+				"image" => 'images/' . $new_file_name,
+				"description" => $description,
+				"featured" => $featured
+			];
+			$res = $this->db->insert("products", $new);
+			if ($res) {
+			?>
+				<script>
+					alert("Inserted new value");
+					window.location.href = '<?php echo base_url('welcome/adminDtails'); ?>'
+				</script>
+
+			<?php
+			}
+		} else {
+			?>
 			<script>
-				alert("Inserted new value");
-				window.location.href = '<?php echo base_url('welcome/adminDtails'); ?>'
+				alert("enter username and password")
+				window.location.href = "<?php echo base_url('welcome/admin') ?>";
 			</script>
-
-<?php
+		<?php
 		}
 	}
 	public function delete($id)
 	{
-		
+
 		$sql = "delete from products where id='$id' ";
 		$query = $this->db->query($sql);
-		
-		if($query){
-			?>
+
+		if ($query) {
+		?>
 			<script>
-				alert ("deleted ");
-				window.location.href='<?php echo base_url('welcome/adminDtails'); ?>'
+				alert("deleted ");
+				window.location.href = '<?php echo base_url('welcome/adminDtails'); ?>'
 			</script>
-			<?php
+<?php
 		}
 	}
 }
