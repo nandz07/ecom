@@ -41,12 +41,15 @@
         </li>
 
       </ul>
-      
+
 
     </div>
   </nav>
   <form method="post" action="">
-    <div class="col-md-2">
+    <div class="col-md-2 " style="
+    margin: auto;
+    padding-top: 20px;
+    display: flex;">
       <div class="col-md-8">
         <div class="row">
           <h2 class="text-center">Products</h2>
@@ -60,9 +63,11 @@
           ?>
 
           <div class="col-mod-5">
-            <h4><?php
-                echo $products->title;
-                ?></h4>
+            <h4 style="
+    color: crimson;
+    font-family: cursive;"><?php
+                            echo $products->title;
+                            ?></h4>
             <img src='<?php echo base_url("$products->image"); ?>' alt="" width="200" height="200">
           </div>
           <p class="lprce">Rs <?php
@@ -76,7 +81,7 @@
           <h4><?php
               echo $products->title;
               ?></h4>
-          <p class="details"><?php
+          <p class="details" style="font-family: monospace;"><?php
                               echo $products->description;
                               ?> </p>
           <button class="example"><a href="<?php echo base_url() . 'welcome/'  ?>">Home</button>

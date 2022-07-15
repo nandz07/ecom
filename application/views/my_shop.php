@@ -93,7 +93,7 @@
 				?>
 					<div class="col-3">
 						<div class="card-group">
-							<div class="card card-column" style="width: 18rem;">
+							<div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
 								<img class="card-img-top  " src='<?php echo base_url("$products->image"); ?>' alt="" width="200" height="200">
 
 								<h5 class="card-title"><?php
@@ -102,7 +102,9 @@
 								<p class="lprce">Rs <?php
 													echo $products->price;
 													?></p>
-								<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-primary">more</a>
+													
+								<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-primary" style="    margin: 10px;">more</a>
+								<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to cart</a>
 							</div>
 						</div>
 
