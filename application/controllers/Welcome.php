@@ -42,23 +42,25 @@ class Welcome extends CI_Controller
 	}
 	public function laptop()
 	{
+		session_start();
 		$sql = "select * from products where featured = 2";
 
 		$query = $this->db->query($sql);
 		$ans = $query->result();
 		$data["data"] = $ans;
 
-		$this->load->view('product_laptop', $data);
+		$this->load->view('my_shop', $data);
 	}
 	public function mobile()
 	{
+		session_start();
 		$sql = "select * from products where featured = 1";
 
 		$query = $this->db->query($sql);
 		$ans = $query->result();
 		$data["data"] = $ans;
 
-		$this->load->view('product_mobile', $data);
+		$this->load->view('my_shop', $data);
 	}
 	public function login()
 	{
