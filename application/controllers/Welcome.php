@@ -109,7 +109,7 @@ class Welcome extends CI_Controller
 
 
 		if (isset($_SESSION['username'])) {
-		?>
+?>
 			<script>
 				alert("you didn't logout")
 				window.location.href = "<?php echo base_url('welcome/') ?>";
@@ -162,7 +162,7 @@ class Welcome extends CI_Controller
 	// 		alert("user name or password is inncorrect")
 	// 		window.location.href = '<-?php echo base_url('welcome/login'); ?=>'
 	// 	</script>
-	
+
 	public function admin()
 	{
 		$this->load->view("admin");
@@ -383,8 +383,85 @@ class Welcome extends CI_Controller
 				alert("deleted ");
 				window.location.href = '<?php echo base_url('welcome/adminDtails'); ?>'
 			</script>
-<?php
+			<?php
 		}
 	}
 	//.................cart..........
+
+	public function addCart($id)
+	{
+		session_start();
+		//.......userid
+		$this->db->select("*");
+		$this->db->from("user");
+		$this->db->where("firstName", $_SESSION['username']);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$u_db_userid = $ans->id;
+		}
+		$this->db->select("*");
+		$this->db->from("cart");
+		$this->db->where("userid", $u_db_userid);
+		$sql1 = $this->db->get("");
+		$data1 = $sql1->result();
+		foreach ($data1 as $ans) {
+			$c_db_proid = $ans->proid;
+		}
+
+		//.........cart add
+		if ($data1 != NULL) {
+			if ($c_db_proid == $id) {
+				//current user with alredy inserted data
+				$this->db->select("*");
+				$this->db->from("cart");
+				$this->db->where("userid",  $u_db_userid);
+				$sql = $this->db->get("");
+				$data = $sql->result();
+				foreach ($data as $ans) {
+					$db_qnt = $ans->quantity;
+				}
+				$this->db->set("quantity", ++$db_qnt);
+				$this->db->where("userid",  $u_db_userid);
+				$this->db->where("proid",  $c_db_proid);
+				$this->db->update("cart");
+			?>
+				<script>
+					alert("Added to cart ! ");
+					window.location.href = '<?php echo base_url('welcome/'); ?>'
+				</script>
+<?php
+			} else {
+				//alredy inserted user with new product
+				$qnt = 0;
+				$new = [
+					"userid" => $u_db_userid,
+					"proid" => $id,
+					"quantity" => ++$qnt
+				];
+				$this->db->insert("cart", $new);
+			}
+		} else {
+			//new user insert
+			$qnt = 0;
+			$new = [
+				"userid" => $u_db_userid,
+				"proid" => $id,
+				"quantity" => ++$qnt
+			];
+			$this->db->insert("cart", $new);
+		}
+	}
+	public function cartDetails()
+	{
+		session_start();
+
+		$this->db->select("*");
+		$this->db->from("products");
+		$this->db->where("id", );
+		$sql = $this->db->get("");
+		$data_p_db = $sql->result();
+
+		
+	}
 }
