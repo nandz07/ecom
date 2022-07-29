@@ -440,6 +440,7 @@ class Welcome extends CI_Controller
 					"quantity" => ++$qnt
 				];
 				$this->db->insert("cart", $new);
+				redirect(base_url('welcome/'));
 			}
 		} else {
 			//new user insert
@@ -450,6 +451,7 @@ class Welcome extends CI_Controller
 				"quantity" => ++$qnt
 			];
 			$this->db->insert("cart", $new);
+			redirect(base_url('welcome/'));
 		}
 	}
 	public function cartDetails()
@@ -457,11 +459,73 @@ class Welcome extends CI_Controller
 		session_start();
 
 		$this->db->select("*");
-		$this->db->from("products");
-		$this->db->where("id", );
+		$this->db->from("user");
+		$this->db->where("firstName", $_SESSION['username']);
 		$sql = $this->db->get("");
-		$data_p_db = $sql->result();
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$u_db_userid = $ans->id;
+		}
 
+		$this->db->select("*");
+		$this->db->from("cart");
+		$this->db->where("userid", $u_db_userid);
+		$sql1 = $this->db->get("");
+		$ans = $sql1->result();
+		$data1["data1"]=$ans;
+		//var_dump($data1);
+		
+		$this->load->view("cart_details",$data1);
 		
 	}
+	public function increaseCartPro($id){
+
+		$this->db->select("*");
+				$this->db->from("cart");
+				$this->db->where("id",  $id);
+				$sql = $this->db->get("");
+				$data = $sql->result();
+				foreach ($data as $ans) {
+					$db_qnt = $ans->quantity;
+				}
+				$this->db->set("quantity", ++$db_qnt);
+				$this->db->where("id",  $id);
+				
+				$this->db->update("cart");
+
+				redirect(base_url('welcome/cartDetails'));
+	}
+	public function deleteCartPro($id){
+
+		$sql = "delete from cart where id='$id' ";
+		$query = $this->db->query($sql);
+
+				redirect(base_url('welcome/cartDetails'));
+	}
+	public function decreaseCartPro($id){
+
+		$id1=$id;
+		$this->db->select("*");
+				$this->db->from("cart");
+				$this->db->where("id",  $id);
+				$sql = $this->db->get("");
+				$data = $sql->result();
+				foreach ($data as $ans) {
+					$db_qnt = $ans->quantity;
+				}
+				if($db_qnt>1){
+				$this->db->set("quantity", --$db_qnt);
+				$this->db->where("id",  $id);
+				
+				$this->db->update("cart");
+
+				redirect(base_url('welcome/cartDetails'));
+				}else{
+					$d=$this->deleteCartPro($id1);
+				}
+	}
+	public function purchase(){
+		
+	}
+	
 }

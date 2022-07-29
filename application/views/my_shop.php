@@ -104,7 +104,7 @@
 				<?php
 				foreach ($data as $products) {
 				?>
-					<div class="col-3">
+					<div class="col-3 col-md-3">
 						<div class="card-group">
 							<div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
 								<img class="card-img-top  " src='<?php echo base_url("$products->image"); ?>' alt="" width="200" height="200">
