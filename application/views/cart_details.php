@@ -145,6 +145,55 @@
 
 
                         </div>
+
+
+                    <?php
+                    } else {
+                    ?>
+                        <div class="col-3 col-md-3 col-sm-12 ">
+                            <div class="card-group">
+                                <div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
+                                    <p>quantity</p>
+                                    <?php echo $cart->quantity;
+
+                                    $db_p_id = $cart->proid;
+
+                                    $this->db->select("*");
+                                    $this->db->from("products");
+                                    $this->db->where("id", $db_p_id);
+                                    $sql1 = $this->db->get("");
+                                    $ans = $sql1->result();
+
+                                    foreach ($ans as $pro) {
+                                    ?>
+                                        <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
+
+                                        <h5 class="card-title"><?php
+                                                                echo $pro->title;
+                                                                ?></h5>
+                                        <p class="lprce"> price <?php
+                                                                echo $pro->price * $cart->quantity;
+
+                                                                ?></p>
+
+                                    <?php
+                                    }
+
+                                    ?>
+
+                                    <a href="<?php echo base_url('#')  . $cart->id ?>" class="btn btn-info" style="    margin: 10px; height:50px">on The way</a>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                <?php
+                    }
+                }
+                ?>
+
+
             </div>
             <br>
 
@@ -155,61 +204,12 @@
                                                             ?>">
         <p>Grand Total : </p>
         <?php
-                        echo $total . "/-";
+        echo $total . "/-";
         ?>
 
         <button class="btn btn-primary btn-lg">
             Place Order
         </button>
-
-    <?php
-                    } else {
-    ?>
-        <div class="col-3 col-md-3 col-sm-12 ">
-            <div class="card-group">
-                <div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
-                    <p>quantity</p>
-                    <?php echo $cart->quantity;
-
-                        $db_p_id = $cart->proid;
-
-                        $this->db->select("*");
-                        $this->db->from("products");
-                        $this->db->where("id", $db_p_id);
-                        $sql1 = $this->db->get("");
-                        $ans = $sql1->result();
-
-                        foreach ($ans as $pro) {
-                    ?>
-                        <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
-
-                        <h5 class="card-title"><?php
-                                                echo $pro->title;
-                                                ?></h5>
-                        <p class="lprce"> price <?php
-                                                echo $pro->price * $cart->quantity;
-
-                                                ?></p>
-
-                    <?php
-                        }
-
-                    ?>
-
-                    <a href="<?php echo base_url('#')  . $cart->id ?>" class="btn btn-info" style="    margin: 10px; height:50px">on The way</a>
-
-                </div>
-            </div>
-
-
-        </div>
-<?php
-                    }
-                }
-?>
-
-
-
     </form>
 </body>
 

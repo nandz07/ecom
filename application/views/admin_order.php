@@ -89,8 +89,9 @@
             <tbody>
                 <?php
                 foreach ($data as $std) {
-
+                    if($std->status <3){
                 ?>
+
                     <tr>
 
                         <td><?php echo $std->id; ?></td>
@@ -108,6 +109,7 @@
                     </tr>
                 <?php
                 }
+            }
                 ?>
 
                 <a class="button" title="Edit" data-toggle="tooltip" href="<?php echo base_url('welcome/insertView') ?>">Insert New</a>

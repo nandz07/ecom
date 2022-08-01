@@ -633,10 +633,10 @@ class Welcome extends CI_Controller
 
 		$this->db->set("status","3");
 		$this->db->where("uid",  $userid);
-		$this->db->where("status",  "0");
+		//$this->db->where("status",  "0");
 		$this->db->update("order");
 
-		redirect(base_url('welcome/adminOrder'));
+		//redirect(base_url('welcome/adminOrder'));
 		
 	}
 }
