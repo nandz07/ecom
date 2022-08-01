@@ -70,11 +70,11 @@
                     <li class="nav-item dropdown">
                         <?php
 
-                        if (isset($_SESSION['username'])) {
+                        if (isset($_SESSION['uname'])) {
 
                         ?>
 
-                            <a class="nav-link" href="" style="color:red;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="" style="color:#ffffff;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
                         <?php
                         } else {
                         ?>
@@ -93,9 +93,7 @@
 
         </div>
     </nav>
-    <form method="post" action="<?php echo base_url('welcome/purchase') ?>">
-
-
+    <form method="post" action="<?php echo base_url('welcome/allowOrder') ?>">
 
         <div class="container mt-5 d-flex flex-row">
             <div class="row ">
@@ -104,7 +102,7 @@
                 <?php
                 $total = 0;
                 foreach ($data1 as $cart) {
-                    if ($cart->status != 2) {
+                    if ($cart->status == 2) {
                 ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
@@ -129,86 +127,38 @@
                                                                 ?></h5>
                                         <p class="lprce"> price <?php
                                                                 echo $pro->price * $cart->quantity;
-                                                                $total = $total + $pro->price * $cart->quantity;
+
                                                                 ?></p>
 
                                     <?php
                                     }
 
                                     ?>
-                                    <a href="<?php echo base_url('welcome/increaseCartPro/')  . $cart->id ?>" class="btn btn-light" style="    margin: 10px; height:30px">+</a>
-                                    <a href="<?php echo base_url('welcome/decreaseCartPro/')  . $cart->id ?>" class="btn btn-light" style="    margin: 10px; height:30px">-</a>
-                                    <a href="<?php echo base_url('welcome/deleteCartPro/')  . $cart->id ?>" class="btn btn-danger" style="    margin: 10px; height:50px">Delete</a>
+
+
 
                                 </div>
                             </div>
 
 
                         </div>
-            </div>
-            <br>
 
+                <?php
+                    }
+                    ?>
+                    <input type="hidden" value="<?php echo $cart->userid; ?>" name="userid">
+                    <?php
+                }
+                ?>
+            </div>
         </div>
-        <hr style="font-weight: 100px;">
-        <input type="text" name="total" id="total" value="<?php
-                                                            echo $total;
-                                                            ?>">
-        <p>Grand Total : </p>
-        <?php
-                        echo $total . "/-";
-        ?>
+        <hr>
+
+
 
         <button class="btn btn-primary btn-lg">
-            Place Order
+            Delivered
         </button>
-
-    <?php
-                    } else {
-    ?>
-        <div class="col-3 col-md-3 col-sm-12 ">
-            <div class="card-group">
-                <div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
-                    <p>quantity</p>
-                    <?php echo $cart->quantity;
-
-                        $db_p_id = $cart->proid;
-
-                        $this->db->select("*");
-                        $this->db->from("products");
-                        $this->db->where("id", $db_p_id);
-                        $sql1 = $this->db->get("");
-                        $ans = $sql1->result();
-
-                        foreach ($ans as $pro) {
-                    ?>
-                        <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
-
-                        <h5 class="card-title"><?php
-                                                echo $pro->title;
-                                                ?></h5>
-                        <p class="lprce"> price <?php
-                                                echo $pro->price * $cart->quantity;
-
-                                                ?></p>
-
-                    <?php
-                        }
-
-                    ?>
-
-                    <a href="<?php echo base_url('#')  . $cart->id ?>" class="btn btn-info" style="    margin: 10px; height:50px">on The way</a>
-
-                </div>
-            </div>
-
-
-        </div>
-<?php
-                    }
-                }
-?>
-
-
 
     </form>
 </body>

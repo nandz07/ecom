@@ -137,7 +137,7 @@ class Welcome extends CI_Controller
 	{
 		session_start();
 		if (isset($_SESSION['username'])) {
-			session_destroy();
+			unset($_SESSION["username"])
 		?>
 			<script>
 				alert("Logout successfully !")
@@ -242,7 +242,7 @@ class Welcome extends CI_Controller
 	{
 		session_start();
 		if (isset($_SESSION['uname'])) {
-			session_destroy();
+			unset($_SESSION["uname"])
 		?>
 			<script>
 				alert("Logout successfully !")
@@ -472,66 +472,70 @@ class Welcome extends CI_Controller
 		$this->db->where("userid", $u_db_userid);
 		$sql1 = $this->db->get("");
 		$ans = $sql1->result();
-		$data1["data1"]=$ans;
+		$data1["data1"] = $ans;
 		//var_dump($data1);
-		
-		$this->load->view("cart_details",$data1);
-		
+
+		$this->load->view("cart_details", $data1);
 	}
-	public function increaseCartPro($id){
+	public function increaseCartPro($id)
+	{
 
 		$this->db->select("*");
-				$this->db->from("cart");
-				$this->db->where("id",  $id);
-				$sql = $this->db->get("");
-				$data = $sql->result();
-				foreach ($data as $ans) {
-					$db_qnt = $ans->quantity;
-				}
-				$this->db->set("quantity", ++$db_qnt);
-				$this->db->where("id",  $id);
-				
-				$this->db->update("cart");
+		$this->db->from("cart");
+		$this->db->where("id",  $id);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$db_qnt = $ans->quantity;
+		}
+		$this->db->set("quantity", ++$db_qnt);
+		$this->db->where("id",  $id);
 
-				redirect(base_url('welcome/cartDetails'));
+		$this->db->update("cart");
+
+		redirect(base_url('welcome/cartDetails'));
 	}
-	public function deleteCartPro($id){
+	public function deleteCartPro($id)
+	{
 
 		$sql = "delete from cart where id='$id' ";
 		$query = $this->db->query($sql);
 
-				redirect(base_url('welcome/cartDetails'));
+		redirect(base_url('welcome/cartDetails'));
 	}
-	public function decreaseCartPro($id){
+	public function decreaseCartPro($id)
+	{
 
-		$id1=$id;
+		$id1 = $id;
 		$this->db->select("*");
-				$this->db->from("cart");
-				$this->db->where("id",  $id);
-				$sql = $this->db->get("");
-				$data = $sql->result();
-				foreach ($data as $ans) {
-					$db_qnt = $ans->quantity;
-				}
-				if($db_qnt>1){
-				$this->db->set("quantity", --$db_qnt);
-				$this->db->where("id",  $id);
-				
-				$this->db->update("cart");
+		$this->db->from("cart");
+		$this->db->where("id",  $id);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$db_qnt = $ans->quantity;
+		}
+		if ($db_qnt > 1) {
+			$this->db->set("quantity", --$db_qnt);
+			$this->db->where("id",  $id);
 
-				redirect(base_url('welcome/cartDetails'));
-				}else{
-					$d=$this->deleteCartPro($id1);
-				}
+			$this->db->update("cart");
+
+			redirect(base_url('welcome/cartDetails'));
+		} else {
+			$d = $this->deleteCartPro($id1);
+		}
 	}
-	public function purchase(){
+	public function purchase()
+	{
 		session_start();
-		$t=$this->input->post("total");
-		$data["hai"]=$t;
-		
-		$this->load->view("purchase_details",$data);
+		$t = $this->input->post("total");
+		$data["hai"] = $t;
+
+		$this->load->view("purchase_details", $data);
 	}
-	public function placeOrder(){
+	public function placeOrder()
+	{
 		session_start();
 		$firstName = $this->input->post("firstName");
 		$address = $this->input->post("address");
@@ -541,6 +545,16 @@ class Welcome extends CI_Controller
 
 		$payment = $this->input->post("payment");
 		$total = $this->input->post("total");
+		$uid = $this->input->post("uid");
+
+		$this->db->select("*");
+		$this->db->from("user");
+		$this->db->where("firstName", $_SESSION['username']);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$u_db_userid = $ans->id;
+		}
 
 		$new = [
 			"firstName" => $firstName,
@@ -548,11 +562,12 @@ class Welcome extends CI_Controller
 			"emailAddress" => $emailAddress,
 			"phoneNumber" => $phoneNumber,
 			"payment" => $payment,
-			"total" => $total
+			"total" => $total,
+			"uid" => $u_db_userid
 		];
 		$res = $this->db->insert("order", $new);
 
-		
+
 
 		$this->db->select("*");
 		$this->db->from("user");
@@ -564,18 +579,64 @@ class Welcome extends CI_Controller
 		}
 
 		$this->db->set("status", "2");
-			echo "1";
-				$this->db->where("userid", $u_db_userid);
-				
-				$this->db->update("cart");
-		
+		echo "1";
+		$this->db->where("userid", $u_db_userid);
+
+		$this->db->update("cart");
+
 		//redirect(base_url('welcome/'));
 
 	}
-	public function orderDetails(){
+	public function adminOrder()
+	{
 		session_start();
 
+		$this->db->select("*");
+		$this->db->from("order");
+		$sql = $this->db->get("");
+		$data["data"] = $sql->result();
+
+		$this->load->view("admin_order", $data);
+	}
+	public function orderOfCustomer($id)
+	{
+
+		$this->db->select("*");
+		$this->db->from("order");
+		$this->db->where("id", $id);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$o_db_userid = $ans->uid;
+		}
 
 
+		$this->db->select("*");
+		$this->db->from("cart");
+		$this->db->where("userid", $o_db_userid);
+		$sql1 = $this->db->get("");
+		$ans = $sql1->result();
+		$data1["data1"] = $ans;
+
+		$this->load->view("oreder_of_customer", $data1);
+	}
+	public function allowOrder()
+	{
+		$userid = $this->input->post("userid");
+		echo $userid;
+
+
+		$this->db->set("status","3");
+		$this->db->where("userid",  $userid);
+		$this->db->where("status",  "2");
+		$this->db->update("cart");
+
+		$this->db->set("status","3");
+		$this->db->where("uid",  $userid);
+		$this->db->where("status",  "0");
+		$this->db->update("order");
+
+		redirect(base_url('welcome/adminOrder'));
+		
 	}
 }

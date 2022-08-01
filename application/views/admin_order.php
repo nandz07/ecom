@@ -76,13 +76,14 @@
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Brand Name</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Featured</th>
-                    <th scope="col">operation</th>
+                    <th scope="col">User</th>
+                    <th scope="col">address</th>
+                    <th scope="col">emailAddress </th>
+                    <th scope="col">phoneNumber</th>
+                    <th scope="col">payment</th>
+                    <th scope="col">total</th>
+                    <th scope="col">uid</th>
+                    <th scope="col">user Oreders</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,17 +94,17 @@
                     <tr>
 
                         <td><?php echo $std->id; ?></td>
-                        <td><?php echo $std->title; ?></td>
-                        <td><?php echo $std->price; ?></td>
-                        <td><?php echo $std->brandname; ?></td>
-                        <td><img src="<?php echo base_url($std->image); ?>" alt="" width="50" height="50"></td>
-                        <td><?php echo $std->description;  ?></td>
-                        <td><?php echo $std->featured; ?></td>
+                        <td><?php echo $std->firstName; ?></td>
+                        <td><?php echo $std->address; ?></td>
+                        <td><?php echo $std->emailAddress; ?></td>
+                        
+                        <td><?php echo $std->phoneNumber;  ?></td>
+                        <td><?php echo $std->payment; ?></td>
+                        <td><?php echo $std->total; ?></td>
+                        <td><?php echo $std->uid; ?></td>
+                        <td><a href="<?php echo base_url('welcome/orderOfCustomer/').$std->id?>">View orders</a></td>
 
-                        <td>
-                            <a class="edit" title="Edit" data-toggle="tooltip" href="<?php echo base_url('welcome/edit/') . $std->id; ?>"><i class="material-icons"></i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip" href="<?php echo base_url('welcome/delete/') . $std->id; ?>"><i class="material-icons"></i></a>
-                        </td>
+                        
                     </tr>
                 <?php
                 }
