@@ -525,7 +525,57 @@ class Welcome extends CI_Controller
 				}
 	}
 	public function purchase(){
+		session_start();
+		$t=$this->input->post("total");
+		$data["hai"]=$t;
 		
+		$this->load->view("purchase_details",$data);
 	}
-	
+	public function placeOrder(){
+		session_start();
+		$firstName = $this->input->post("firstName");
+		$address = $this->input->post("address");
+
+		$emailAddress = $this->input->post("emailAddress");
+		$phoneNumber = $this->input->post("phoneNumber");
+
+		$payment = $this->input->post("payment");
+		$total = $this->input->post("total");
+
+		$new = [
+			"firstName" => $firstName,
+			"address" => $address,
+			"emailAddress" => $emailAddress,
+			"phoneNumber" => $phoneNumber,
+			"payment" => $payment,
+			"total" => $total
+		];
+		$res = $this->db->insert("order", $new);
+
+		
+
+		$this->db->select("*");
+		$this->db->from("user");
+		$this->db->where("firstName", $_SESSION['username']);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$u_db_userid = $ans->id;
+		}
+
+		$this->db->set("status", "2");
+			echo "1";
+				$this->db->where("userid", $u_db_userid);
+				
+				$this->db->update("cart");
+		
+		//redirect(base_url('welcome/'));
+
+	}
+	public function orderDetails(){
+		session_start();
+
+
+
+	}
 }
