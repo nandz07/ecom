@@ -104,7 +104,7 @@
                 <?php
                 $total = 0;
                 foreach ($data1 as $cart) {
-                    if ($cart->status != 2) {
+                    if ($cart->status < 2) {
                 ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
