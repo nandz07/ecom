@@ -148,7 +148,7 @@
 
 
                     <?php
-                    } else {
+                    } elseif($cart->status == 2) {
                     ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
@@ -189,6 +189,8 @@
 
                         </div>
                 <?php
+                    }else{
+                        
                     }
                 }
                 ?>

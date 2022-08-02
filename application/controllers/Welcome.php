@@ -579,12 +579,13 @@ class Welcome extends CI_Controller
 		}
 
 		$this->db->set("status", "2");
-		echo "1";
+		
 		$this->db->where("userid", $u_db_userid);
+		$this->db->where("status", "1");
 
 		$this->db->update("cart");
 
-		//redirect(base_url('welcome/'));
+		redirect(base_url('welcome/cartDetails'));
 
 	}
 	public function adminOrder()
@@ -636,7 +637,7 @@ class Welcome extends CI_Controller
 		//$this->db->where("status",  "0");
 		$this->db->update("order");
 
-		//redirect(base_url('welcome/adminOrder'));
+		redirect(base_url('welcome/adminOrder'));
 		
 	}
 }
