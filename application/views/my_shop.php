@@ -68,7 +68,7 @@
 
 						?>
 
-							<a class="nav-link" href=""><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
+							<a class="nav-link" href="" style="color:white;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
 						<?php
 						} else {
 						?>

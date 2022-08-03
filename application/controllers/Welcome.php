@@ -103,6 +103,7 @@ class Welcome extends CI_Controller
 		foreach ($res as $details) {
 			$db_firstName = $details->firstName;
 			$db_password = $details->password;
+			$db_id = $details->id;
 		}
 
 
@@ -117,6 +118,7 @@ class Welcome extends CI_Controller
 		<?php
 		} elseif ($db_firstName == $firstName && $db_password == $password) {
 			$_SESSION['username'] = $db_firstName;
+			$_SESSION['userid'] = $db_id;
 		?>
 			<script>
 				alert("login sucess")
@@ -137,7 +139,8 @@ class Welcome extends CI_Controller
 	{
 		session_start();
 		if (isset($_SESSION['username'])) {
-			unset($_SESSION["username"])
+			unset($_SESSION["username"]);
+			unset($_SESSION["userid"]);
 		?>
 			<script>
 				alert("Logout successfully !")
