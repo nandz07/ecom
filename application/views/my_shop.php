@@ -50,16 +50,10 @@
 
 				</li>
 				<li class="nav-item active">
-					<?php
-
-					if (isset($_SESSION['username'])) {
-
-					?>
+					
 
 						<a class="nav-link" href="<?php echo base_url('welcome/cartDetails'); ?>">Cart<span class="sr-only">(current)</span></a>
-					<?php
-					}
-					?>
+					
 
 				</li>
 
@@ -120,15 +114,10 @@
 
 
 
-								<?php
-
-								if (isset($_SESSION['username'])) {
-
-								?>
+								
 
 									<a href="<?php echo base_url('welcome/addCart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to cart</a>
-								<?php
-								} ?>
+								
 							</div>
 						</div>
 

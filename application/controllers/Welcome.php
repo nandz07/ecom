@@ -403,10 +403,13 @@ class Welcome extends CI_Controller
 		$this->db->select("*");
 		$this->db->from("cart");
 		$this->db->where("userid", $u_db_userid);
+		$this->db->where("proid", $id);
 		$sql1 = $this->db->get("");
 		$data1 = $sql1->result();
 		foreach ($data1 as $ans) {
 			$c_db_proid = $ans->proid;
+
+			
 		}
 
 		//.........cart add
@@ -416,6 +419,7 @@ class Welcome extends CI_Controller
 				$this->db->select("*");
 				$this->db->from("cart");
 				$this->db->where("userid",  $u_db_userid);
+				$this->db->where("proid", $id);
 				$sql = $this->db->get("");
 				$data = $sql->result();
 				foreach ($data as $ans) {
@@ -425,12 +429,7 @@ class Welcome extends CI_Controller
 				$this->db->where("userid",  $u_db_userid);
 				$this->db->where("proid",  $c_db_proid);
 				$this->db->update("cart");
-			?>
-				<script>
-					alert("Added to cart ! ");
-					window.location.href = '<?php echo base_url('welcome/'); ?>'
-				</script>
-<?php
+				redirect(base_url('welcome/'));
 			} else {
 				//alredy inserted user with new product
 				$qnt = 0;
