@@ -109,7 +109,18 @@
                     <div class="col-md-6 mb-4">
 
                       <div class="form-outline">
-                        <input type="text" name="firstName" id="firstName" class="form-control form-control-lg" value="<?php echo($_SESSION['username']) ;?>" />
+                        <?php
+                        if(isset($_SESSION['username'])){
+                          ?>
+                          <input type="text" name="firstName" id="firstName" class="form-control form-control-lg" value="<?php echo($_SESSION['username']) ;?>" />
+                          <?php
+                        }else{
+                          ?>
+                          <input type="text" name="firstName" id="firstName" class="form-control form-control-lg" value="" />
+                          <?php
+                        }
+                        ?>
+                        
                         <label class="form-label" for="firstName" >Name</label>
                       </div>
 
@@ -167,8 +178,18 @@
                     </div>
 
                   </div>
-
-                  <input type="hidden" value="<?php $_SESSION['username'];  ?>" name="uid">
+                        <?php
+                        if(isset($_SESSION['username'])){
+                          ?>
+                          <input type="hidden" value="<?php $_SESSION['username'];  ?>" name="uid">
+                          <?php
+                        }else{
+                          ?>
+                          <input type="hidden" value="<?php ?>" name="uid">
+                          <?php
+                        }
+                        ?>
+                  
 
                   <div class="mt-4 pt-2">
                     <input class="btn btn-primary btn-lg" type="submit" value="Submit" />

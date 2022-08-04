@@ -66,8 +66,8 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
-                <ul>
-                    <li class="nav-item dropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active dropdown">
                         <?php
 
                         if (isset($_SESSION['username'])) {

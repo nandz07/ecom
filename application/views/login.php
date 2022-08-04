@@ -87,8 +87,22 @@
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
+                                                <input type="hidden" value="<?php echo $f; ?>" name="f">
+
+                                                
                                                 <input type="password" name="password" id="password" class="form-control form-control-lg" />
                                                 <label class="form-label" for="password">password</label>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+
+                                            <div class="form-outline">
+                                                <a href="<?php echo base_url('welcome/signup/'); ?>">Creat New account..!</a>
                                             </div>
 
 
