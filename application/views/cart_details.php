@@ -97,14 +97,14 @@
 
 
 
-        <div class="container mt-5 d-flex flex-row">
+        <div class="container mt-5">
             <div class="row ">
 
 
                 <?php
                 $total = 0;
                 foreach ($data1 as $cart) {
-                    if ($cart->status < 2) {
+                    if ($cart->status ==1) {
                 ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
@@ -182,6 +182,7 @@
                                     ?>
 
                                     <a href="<?php echo base_url('#')  . $cart->id ?>" class="btn btn-info" style="    margin: 10px; height:50px">on The way</a>
+                                    <a href="<?php echo base_url('welcome/cancelCartPro/')  . $cart->id ?>" class="btn btn-danger" style="    margin: 10px; height:50px">Cancel</a>
 
                                 </div>
                             </div>
@@ -209,8 +210,8 @@
         echo $total . "/-";
         ?>
 
-        <button class="btn btn-primary btn-lg">
-            Place Order
+        <button class="btn btn-warning btn-lg">
+        Proceed to Buy
         </button>
     </form>
 </body>

@@ -68,7 +68,7 @@
     font-family: cursive;"><?php
                           echo $products->title;
                             ?></h4>
-            <img src='<?php echo base_url("$products->image"); ?>' alt="" width="200" height="200">
+            <img src='<?php echo base_url("$products->image"); ?>' alt="" width="150" height="200">
             <p class="lprce">Rs <?php
                                 echo $products->price;
                                 ?> </p>

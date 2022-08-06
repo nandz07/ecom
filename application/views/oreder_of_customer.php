@@ -95,7 +95,7 @@
     </nav>
     <form method="post" action="<?php echo base_url('welcome/allowOrder') ?>">
 
-        <div class="container mt-5 d-flex flex-row">
+        <div class="container mt-5 ">
             <div class="row ">
 
 
@@ -143,22 +143,82 @@
 
                         </div>
 
-                <?php
+                    <?php
                     }
                     ?>
                     <input type="hidden" value="<?php echo $cart->userid; ?>" name="userid">
-                    <?php
+                <?php
                 }
                 ?>
             </div>
         </div>
-        <hr>
-
-
 
         <button class="btn btn-primary btn-lg">
             Delivered
         </button>
+        <hr>
+        <h3>Cancelled</h3>
+        <div class="container mt-5 ">
+            <div class="row ">
+
+
+                <?php
+                $total = 0;
+                foreach ($data1 as $cart) {
+                    if ($cart->status == 4) {
+                ?>
+                        <div class="col-3 col-md-3 col-sm-12 ">
+                            <div class="card-group">
+                                <div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
+                                    <p>quantity</p>
+                                    <?php echo $cart->quantity;
+
+                                    $db_p_id = $cart->proid;
+
+                                    $this->db->select("*");
+                                    $this->db->from("products");
+                                    $this->db->where("id", $db_p_id);
+                                    $sql1 = $this->db->get("");
+                                    $ans = $sql1->result();
+
+                                    foreach ($ans as $pro) {
+                                    ?>
+                                        <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
+
+                                        <h5 class="card-title"><?php
+                                                                echo $pro->title;
+                                                                ?></h5>
+                                        <p class="lprce"> price <?php
+                                                                echo $pro->price * $cart->quantity;
+
+                                                                ?></p>
+
+                                    <?php
+                                    }
+
+                                    ?>
+
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <input type="hidden" value="<?php echo $cart->userid; ?>" name="userid">
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+        <a href="<?php echo base_url('welcome/clearCancelledorder/')   ?>" class="btn btn-danger" style="    margin: 10px; height:50px">Clear</a>
+
+
+
 
     </form>
 </body>

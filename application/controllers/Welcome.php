@@ -491,7 +491,7 @@ class Welcome extends CI_Controller
 		if ($data1 != NULL) {
 			if ($c_db_proid == $id) {
 				//current user with alredy inserted data
-				if($c_db_status != 2){  
+				if($c_db_status == 1){  
 				
 				$this->db->select("*");
 				$this->db->from("cart");
@@ -628,10 +628,16 @@ class Welcome extends CI_Controller
 	public function purchase()
 	{
 		session_start();
-		$t = $this->input->post("total");
-		$data["hai"] = $t;
-
-		$this->load->view("purchase_details", $data);
+		if(isset($_SESSION['username'])){
+			$t = $this->input->post("total");
+			$data["hai"] = $t;
+	
+			$this->load->view("purchase_details", $data);
+		}elseif($_SESSION['username'] == NULL){
+			$flag =2;
+			redirect(base_url('welcome/login/').$flag);
+		}
+		
 	}
 	public function placeOrder()
 	{
@@ -697,7 +703,7 @@ class Welcome extends CI_Controller
 	public function adminOrder()
 	{
 		session_start();
-
+		
 		$this->db->select("*");
 		$this->db->from("order");
 		$sql = $this->db->get("");
@@ -745,5 +751,54 @@ class Welcome extends CI_Controller
 
 		redirect(base_url('welcome/adminOrder'));
 		
+	}
+	public function clearCancelledorder(){
+		$this->db->from("cart");
+		$this->db->where("status",4);
+		$this->db->delete();
+		redirect(base_url('welcome/adminOrder'));
+	}
+	public function cancelCartPro($id){
+		session_start();
+		//status 4 in cart =>cancelled project
+
+		$this->db->select("*");
+		$this->db->from("cart");
+		$this->db->where("id",  $id);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$db_qnt = $ans->quantity;
+			$db_proid=$ans->proid;
+		}
+		$this->db->select("*");
+		$this->db->from("order");
+		$this->db->where("uid",  $_SESSION['userid']);
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$db_total = $ans->total;
+		}
+		$this->db->select("*");
+		$this->db->from("products");
+		$this->db->where("id",$db_proid );
+		$sql = $this->db->get("");
+		$data = $sql->result();
+		foreach ($data as $ans) {
+			$db_price = $ans->price;
+		}
+
+		$cancelled=$db_total-($db_price*$db_qnt);
+
+		$this->db->set("total",$cancelled);
+		$this->db->where("uid", $_SESSION['userid']);
+		$this->db->update("order");
+
+		
+
+		$this->db->set("status","4");
+		$this->db->where("id",  $id);
+		$this->db->update("cart");
+		redirect(base_url('welcome/cartDetails'));
 	}
 }

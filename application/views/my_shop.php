@@ -50,17 +50,17 @@
 
 				</li>
 				<li class="nav-item active">
-					
 
-						<a class="nav-link" href="<?php echo base_url('welcome/cartDetails'); ?>">Cart<span class="sr-only">(current)</span></a>
-					
+
+					<a class="nav-link" href="<?php echo base_url('welcome/cartDetails'); ?>">Cart<span class="sr-only">(current)</span></a>
+
 
 				</li>
 
 			</ul>
 
 			<form class="form-inline my-2 my-lg-0">
-			<ul class="navbar-nav mr-auto">
+				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active dropdown">
 						<?php
 
@@ -75,7 +75,8 @@
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Login</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<?php $flag=1; echo base_url('welcome/login/').$flag; ?>">Log in </a>
+								<a class="dropdown-item" href="<?php $flag = 1;
+																echo base_url('welcome/login/') . $flag; ?>">Log in </a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('welcome/signup/'); ?>">sign up</a>
 							</div>
@@ -88,10 +89,7 @@
 		</div>
 	</nav>
 	<form method="post" action="">
-
-
-
-		<div class="container mt-5 d-flex flex-row">
+		<div class="container mt-5 ">
 			<div class="row ">
 
 
@@ -114,10 +112,10 @@
 
 
 
-								
 
-									<a href="<?php echo base_url('welcome/addCart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to cart</a>
-								
+
+								<a href="<?php echo base_url('welcome/addCart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to cart</a>
+
 							</div>
 						</div>
 
@@ -128,9 +126,6 @@
 				?>
 			</div>
 		</div>
-
-
-
 	</form>
 </body>
 
