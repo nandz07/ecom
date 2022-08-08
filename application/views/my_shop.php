@@ -11,8 +11,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
         .btn:hover{
-            background: transparent;
+            
             color:black;
+			transition: 0.5s all ease;
+			box-shadow: inset 200px 0 0 0 whitesmoke;
+			border: none;
+			
         }
     </style>
 </head>
