@@ -66,15 +66,15 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
-                <ul>
-                    <li class="nav-item dropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active dropdown">
                         <?php
 
-                        if (isset($_SESSION['uname'])) {
+                        if (isset($_SESSION['username'])) {
 
                         ?>
 
-                            <a class="nav-link" href="" style="color:#ffffff;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="" style="color:red;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
                         <?php
                         } else {
                         ?>
@@ -93,16 +93,19 @@
 
         </div>
     </nav>
-    <form method="post" action="<?php echo base_url('welcome/allowOrder') ?>">
+    <form method="post" action="<?php echo base_url('welcome/purchase') ?>">
 
-        <div class="container mt-5 ">
+
+
+        <div class="container mt-5">
             <div class="row ">
 
 
                 <?php
                 $total = 0;
-                foreach ($data1 as $cart) {
-                    if ($cart->status == 2) {
+                foreach ($data as $cart) {
+                    $t = $cart->time;
+                    if ($cart->status == 3) {
                 ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
@@ -127,15 +130,21 @@
                                                                 ?></h5>
                                         <p class="lprce"> price <?php
                                                                 echo $pro->price * $cart->quantity;
-
+                                                                $total = $total + $pro->price * $cart->quantity;
                                                                 ?></p>
 
                                     <?php
                                     }
+                                    $day=(date("YmdHi",$t)); 
+                                    $datetime = DateTime::createFromFormat('YmdHi', $day);
+                                    echo $datetime->format('d')."-";
+                                    echo $datetime->format('M')."-";
+                                    echo $datetime->format('Y')."";
+
 
                                     ?>
 
-
+                                    <a href="<?php echo base_url('welcome/addCart/')  . $cart->proid ?>" class="btn btn-success" style="    margin: 10px; height:50px">buy again</a>
 
                                 </div>
                             </div>
@@ -143,81 +152,17 @@
 
                         </div>
 
-                    <?php
-                    }
-                    ?>
-                    <input type="hidden" value="<?php echo $cart->userid; ?>" name="userid">
-                    <input type="hidden" value="<?php echo $cart->time; ?>" name="time">
+
                 <?php
+                    }
                 }
                 ?>
+
+
             </div>
+
+
         </div>
-
-        <button class="btn btn-primary btn-lg">
-            Delivered
-        </button>
-        <hr>
-        <h3>Cancelled</h3>
-        <div class="container mt-5 ">
-            <div class="row ">
-
-
-                <?php
-                $total = 0;
-                foreach ($data1 as $cart) {
-                    if ($cart->status == 4) {
-                ?>
-                        <div class="col-3 col-md-3 col-sm-12 ">
-                            <div class="card-group">
-                                <div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
-                                    <p>quantity</p>
-                                    <?php echo $cart->quantity;
-
-                                    $db_p_id = $cart->proid;
-
-                                    $this->db->select("*");
-                                    $this->db->from("products");
-                                    $this->db->where("id", $db_p_id);
-                                    $sql1 = $this->db->get("");
-                                    $ans = $sql1->result();
-
-                                    foreach ($ans as $pro) {
-                                    ?>
-                                        <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
-
-                                        <h5 class="card-title"><?php
-                                                                echo $pro->title;
-                                                                ?></h5>
-                                        <p class="lprce"> price <?php
-                                                                echo $pro->price * $cart->quantity;
-
-                                                                ?></p>
-
-                                    <?php
-                                    }
-
-                                    ?>
-
-
-
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-                    <input type="hidden" value="<?php echo $cart->userid; ?>" name="userid">
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-        <a href="<?php echo base_url('welcome/clearCancelledorder/')   ?>" class="btn btn-danger" style="    margin: 10px; height:50px">Clear</a>
-
 
 
 

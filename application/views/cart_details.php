@@ -9,6 +9,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .btn:hover{
+            background: transparent;
+            color:black;
+        }
+    </style>
 
 </head>
 
@@ -66,8 +72,8 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active dropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active dropdown">
                         <?php
 
                         if (isset($_SESSION['username'])) {
@@ -104,7 +110,7 @@
                 <?php
                 $total = 0;
                 foreach ($data1 as $cart) {
-                    if ($cart->status ==1) {
+                    if ($cart->status == 1) {
                 ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
@@ -148,7 +154,7 @@
 
 
                     <?php
-                    } elseif($cart->status == 2) {
+                    } elseif ($cart->status == 2) {
                     ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
@@ -157,6 +163,7 @@
                                     <?php echo $cart->quantity;
 
                                     $db_p_id = $cart->proid;
+                                    $t = $cart->time;
 
                                     $this->db->select("*");
                                     $this->db->from("products");
@@ -180,6 +187,24 @@
                                     }
 
                                     ?>
+                                    <p style="color:green">Placed on :<?php echo (date("d-m-y", $t));
+
+                                                                        ?></p>
+
+
+                                    <p style="color:brown">Ship on :<?php
+                                                                    $m = strtotime('+1 day', $t);
+                                                                    echo (date("d-m-y", $m));
+                                                                    ?></p>
+
+
+                                    <p style="color:brown">Recive on :<?php
+                                                                        $m = strtotime('+5 day', $t);
+                                                                        echo (date("d-m-y", $m));
+                                                                        ?></p>
+                                    <p style="color:green">
+
+                                    </p>
 
                                     <a href="<?php echo base_url('#')  . $cart->id ?>" class="btn btn-info" style="    margin: 10px; height:50px">on The way</a>
                                     <a href="<?php echo base_url('welcome/cancelCartPro/')  . $cart->id ?>" class="btn btn-danger" style="    margin: 10px; height:50px">Cancel</a>
@@ -190,8 +215,7 @@
 
                         </div>
                 <?php
-                    }else{
-                        
+                    } else {
                     }
                 }
                 ?>
@@ -201,6 +225,11 @@
             <br>
 
         </div>
+        
+        
+        <?php
+        if ($total > 0) {
+        ?>
         <hr style="font-weight: 100px;">
         <input type="text" name="total" id="total" value="<?php
                                                             echo $total;
@@ -209,10 +238,12 @@
         <?php
         echo $total . "/-";
         ?>
-
-        <button class="btn btn-warning btn-lg">
-        Proceed to Buy
-        </button>
+            <button class="btn btn-warning btn-lg">
+                Proceed to Buy
+            </button>
+        <?php
+        }
+        ?>
     </form>
 </body>
 

@@ -642,6 +642,7 @@ class Welcome extends CI_Controller
 	public function placeOrder()
 	{
 		session_start();
+		$t=time();
 		if(isset($_SESSION['username'])){
 
 		
@@ -671,7 +672,8 @@ class Welcome extends CI_Controller
 			"phoneNumber" => $phoneNumber,
 			"payment" => $payment,
 			"total" => $total,
-			"uid" => $u_db_userid
+			"uid" => $u_db_userid,
+			"time"=>$t
 		];
 		$res = $this->db->insert("order", $new);
 
@@ -685,8 +687,10 @@ class Welcome extends CI_Controller
 		foreach ($data as $ans) {
 			$u_db_userid = $ans->id;
 		}
+		
 
 		$this->db->set("status", "2");
+		$this->db->set("time", $t);
 		
 		$this->db->where("userid", $u_db_userid);
 		$this->db->where("status", "1");
@@ -721,12 +725,14 @@ class Welcome extends CI_Controller
 		$data = $sql->result();
 		foreach ($data as $ans) {
 			$o_db_userid = $ans->uid;
+			$o_db_time =$ans->time;
 		}
 
 
 		$this->db->select("*");
 		$this->db->from("cart");
 		$this->db->where("userid", $o_db_userid);
+		$this->db->where("time", $o_db_time);
 		$sql1 = $this->db->get("");
 		$ans = $sql1->result();
 		$data1["data1"] = $ans;
@@ -736,16 +742,19 @@ class Welcome extends CI_Controller
 	public function allowOrder()
 	{
 		$userid = $this->input->post("userid");
+		$t = $this->input->post("time");
 		echo $userid;
 
 
 		$this->db->set("status","3");
 		$this->db->where("userid",  $userid);
+		$this->db->where("time",  $t);
 		$this->db->where("status",  "2");
 		$this->db->update("cart");
 
 		$this->db->set("status","3");
 		$this->db->where("uid",  $userid);
+		$this->db->where("time",  $t);
 		//$this->db->where("status",  "0");
 		$this->db->update("order");
 
@@ -756,6 +765,9 @@ class Welcome extends CI_Controller
 		$this->db->from("cart");
 		$this->db->where("status",4);
 		$this->db->delete();
+
+		$this->db->from("cart");
+		$this->db->where("status",4);
 		redirect(base_url('welcome/adminOrder'));
 	}
 	public function cancelCartPro($id){
@@ -792,6 +804,7 @@ class Welcome extends CI_Controller
 
 		$this->db->set("total",$cancelled);
 		$this->db->where("uid", $_SESSION['userid']);
+		$this->db->where("status", NULL);
 		$this->db->update("order");
 
 		
@@ -800,5 +813,18 @@ class Welcome extends CI_Controller
 		$this->db->where("id",  $id);
 		$this->db->update("cart");
 		redirect(base_url('welcome/cartDetails'));
+	}
+	public function cartHistory(){
+		session_start();
+
+		$this->db->select("*");
+		$this->db->from("cart");
+		$this->db->where("userid",$_SESSION['userid']);
+		
+		$sql=$this->db->get("");
+		$data["data"]=$sql->result();
+
+		$this->load->view("cart_history",$data);
+
 	}
 }
