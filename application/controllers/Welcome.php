@@ -137,7 +137,7 @@ class Welcome extends CI_Controller
 			$this->db->update("cart");
 		?>
 			<script>
-				alert("login sucess")
+				alert("login sucess 1")
 				window.location.href = "<?php echo base_url('welcome/') ?>";
 			</script>
 		<?php
@@ -190,7 +190,7 @@ class Welcome extends CI_Controller
 			$this->db->update("cart");
 		?>
 			<script>
-				alert("login sucess")
+				alert("login sucess 2")
 				window.location.href = "<?php echo base_url('welcome/') ?>";
 			</script>
 		<?php
@@ -820,7 +820,7 @@ class Welcome extends CI_Controller
 		$this->db->select("*");
 		$this->db->from("cart");
 		$this->db->where("userid",$_SESSION['userid']);
-		
+
 		$sql=$this->db->get("");
 		$data["data"]=$sql->result();
 

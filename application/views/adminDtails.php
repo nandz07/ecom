@@ -109,7 +109,8 @@
                 }
                 ?>
 
-                <a class="button" title="Edit" data-toggle="tooltip" href="<?php echo base_url('welcome/insertView') ?>">Insert New</a>
+                <a class="btn btn-success" title="insert" data-toggle="tooltip" href="<?php echo base_url('welcome/insertView') ?>">Insert New</a>
+                
 
             </tbody>
         </table>

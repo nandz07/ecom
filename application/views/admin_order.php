@@ -104,6 +104,13 @@
                         <td><?php echo $std->total; ?></td>
                         <td><?php echo $std->uid; ?></td>
                         <td><a href="<?php echo base_url('welcome/orderOfCustomer/').$std->id?>">View orders</a></td>
+                        <?php
+                            if($std->total == 0){
+                                ?>
+                                <td><a href="<?php echo base_url('Admin/DeleteOrder/').$std->id?>">Delete</a></td>
+                                <?php
+                            }
+                        ?>
 
                         
                     </tr>

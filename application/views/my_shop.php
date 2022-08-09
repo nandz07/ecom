@@ -9,15 +9,32 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 	<style>
         .btn:hover{
             
-            color:black;
+            color:green;
 			transition: 0.5s all ease;
 			box-shadow: inset 200px 0 0 0 whitesmoke;
 			border: none;
 			
+			
         }
+		.nav-link:hover{
+			
+			transition: 0.5s all ease;
+			border-bottom: 3px solid #f33f3f;
+		}
+		.card-group:hover{
+			transform: scale(1.05);
+			transition: 0.3s all ease;
+			color: red;
+			
+		}
+		/* .navbar{
+			height: 60px;
+		} */
+		
     </style>
 </head>
 
@@ -38,7 +55,7 @@
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Products</a>
+					Products	</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="<?php echo base_url('welcome/laptop/'); ?>">Laptop</a>
 						<div class="dropdown-divider"></div>
@@ -83,12 +100,14 @@
 
 			<form class="form-inline my-2 my-lg-0">
 				<ul class="navbar-nav mr-auto">
+					
 					<li class="nav-item active dropdown">
 						<?php
 
 						if (isset($_SESSION['username'])) {
 
 						?>
+						
 
 							<a class="nav-link" href="" style="color:white;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
 						<?php
@@ -129,10 +148,10 @@
 								<p class="lprce">Rs <?php
 													echo $products->price;
 													?></p>
-
+							
 								<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-primary" style="    margin: 10px;">more</a>
 
-
+								
 
 
 
@@ -148,6 +167,12 @@
 				?>
 			</div>
 		</div>
+		  <div class="progress">
+      <div class="determinate" style="width: 70%">
+	
+	</div>
+  </div>
+        
 	</form>
 </body>
 
