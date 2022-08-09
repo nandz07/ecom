@@ -48,7 +48,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="<?php echo base_url('welcome/'); ?>">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="<?php echo base_url('welcome/'); ?>"><i class="fa fa-home"></i> <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">Link</a>
@@ -91,7 +91,7 @@
 				<li class="nav-item active">
 
 
-					<a class="nav-link" href="<?php echo base_url('welcome/cartDetails'); ?>">Cart<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="<?php echo base_url('welcome/cartDetails'); ?>"><span ><i class="fa fa-shopping-cart"></i></span></a>
 
 
 				</li>
@@ -114,7 +114,7 @@
 						} else {
 						?>
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Login</a>
+							<i class='far fas fa-user-alt' style='font-size:24px'></i></a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="<?php $flag = 1;
 																echo base_url('welcome/login/') . $flag; ?>">Log in </a>
@@ -155,7 +155,7 @@
 
 
 
-								<a href="<?php echo base_url('welcome/addCart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to cart</a>
+								<a href="<?php echo base_url('welcome/addCart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to <span><i class="fa fa-shopping-cart"></i></span></a>
 
 							</div>
 						</div>
