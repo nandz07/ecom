@@ -9,7 +9,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .part1 {
 
+            visibility: hidden;
+            transform: translateY(100%);
+        }
+
+        .card:hover .part2 {
+            opacity: 50%;
+
+        }
+
+        .btn:hover {
+            /* box-shadow: inset 200px 0 0 0 ; */
+            color: green;
+            background-color: transparent;
+            border-radius: 10px;
+
+        }
+
+        .card:hover {
+            border-radius: 10px;
+        }
+
+        .card:hover .part1 {
+            opacity: 1;
+            visibility: visible;
+            -webkit-transform: translateY(0);
+            transform: translateY(-300%);
+            transition: 0.5s all ease;
+        }
+    </style>
 </head>
 
 <body>
@@ -109,44 +140,48 @@
                 ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
-                                <div class="card card-column" style="width: 18rem;    margin-bottom: 20px; border-color:green; border-radius:10px;">
-                                <p>quantity</p>
-                                    <?php echo $cart->quantity;
+                                <div class="card card-column" style="width: 18rem; height:auto;   margin-bottom: 20px; border:none; border-radius:10px;">
+                                    <div class="part2">
+                                        <p>quantity</p>
+                                        <?php echo $cart->quantity;
 
-                                    $db_p_id = $cart->proid;
+                                        $db_p_id = $cart->proid;
 
-                                    $this->db->select("*");
-                                    $this->db->from("products");
-                                    $this->db->where("id", $db_p_id);
-                                    $sql1 = $this->db->get("");
-                                    $ans = $sql1->result();
+                                        $this->db->select("*");
+                                        $this->db->from("products");
+                                        $this->db->where("id", $db_p_id);
+                                        $sql1 = $this->db->get("");
+                                        $ans = $sql1->result();
 
-                                    foreach ($ans as $pro) {
-                                    ?>
-                                        <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
+                                        foreach ($ans as $pro) {
+                                        ?>
+                                            <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
 
-                                        <h5 class="card-title"><?php
-                                                                echo $pro->title;
-                                                                ?></h5>
-                                        <p class="lprce"> price <?php
-                                                                echo $pro->price * $cart->quantity;
-                                                                $total = $total + $pro->price * $cart->quantity;
-                                                                ?></p>
-                                        <p style="color:green;">ordered placed on :</p>
+                                            <h5 class="card-title"><?php
+                                                                    echo $pro->title;
+                                                                    ?></h5>
+                                            <p class="lprce"> price <?php
+                                                                    echo $pro->price * $cart->quantity;
+                                                                    $total = $total + $pro->price * $cart->quantity;
+                                                                    ?></p>
+                                            <p style="color:green;">ordered placed on :</p>
 
-                                    <?php
-                                    }
-                                    $day = (date("YmdHi", $t));
-                                    $datetime = DateTime::createFromFormat('YmdHi', $day);
-                                    echo $datetime->format('d') . "-";
-                                    echo $datetime->format('M') . "-";
-                                    echo $datetime->format('Y') . "";
+                                        <?php
+                                        }
+                                        $day = (date("YmdHi", $t));
+                                        $datetime = DateTime::createFromFormat('YmdHi', $day);
+                                        echo $datetime->format('d') . "-";
+                                        echo $datetime->format('M') . "-";
+                                        echo $datetime->format('Y') . "";
 
 
-                                    ?>
+                                        ?>
 
-                                    <a href="<?php echo base_url('welcome/addCart/')  . $cart->proid ?>" class="btn btn-success" style="    margin: 10px; height:50px">buy again</a>
+                                    </div>
+                                    <div class="part1">
 
+                                        <a href="<?php echo base_url('welcome/addCart/')  . $cart->proid ?>" class="btn btn-success" style="    margin: 10px; height:50px; display:block;">Buy Now</a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -160,44 +195,48 @@
                     ?>
                         <div class="col-3 col-md-3 col-sm-12 ">
                             <div class="card-group">
-                                <div class="card card-column" style="width: 18rem;    margin-bottom: 20px; border-color:red; border-radius:10px;">
-                                <p>quantity</p>
-                                    <?php echo $cart->quantity;
+                                <div class="card card-column" style="width: 18rem; height:auto;   margin-bottom: 20px; border:none; border-radius:10px;">
+                                    <div class="part2">
+                                        <p>quantity</p>
+                                        <?php echo $cart->quantity;
 
-                                    $db_p_id = $cart->proid;
+                                        $db_p_id = $cart->proid;
 
-                                    $this->db->select("*");
-                                    $this->db->from("products");
-                                    $this->db->where("id", $db_p_id);
-                                    $sql1 = $this->db->get("");
-                                    $ans = $sql1->result();
+                                        $this->db->select("*");
+                                        $this->db->from("products");
+                                        $this->db->where("id", $db_p_id);
+                                        $sql1 = $this->db->get("");
+                                        $ans = $sql1->result();
 
-                                    foreach ($ans as $pro) {
-                                    ?>
-                                        <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
+                                        foreach ($ans as $pro) {
+                                        ?>
+                                            <img class="card-img-top  " src='<?php echo base_url("$pro->image"); ?>' alt="" width="200" height="200">
 
-                                        <h5 class="card-title"><?php
-                                                                echo $pro->title;
-                                                                ?></h5>
-                                        <p class="lprce"> price <?php
-                                                                echo $pro->price * $cart->quantity;
-                                                                $total = $total + $pro->price * $cart->quantity;
-                                                                ?></p>
-                                        <p style="color:red;">ordered canceled on :</p>
+                                            <h5 class="card-title"><?php
+                                                                    echo $pro->title;
+                                                                    ?></h5>
+                                            <p class="lprce"> price <?php
+                                                                    echo $pro->price * $cart->quantity;
+                                                                    $total = $total + $pro->price * $cart->quantity;
+                                                                    ?></p>
+                                            <p style="color:red;">ordered Cancelled on :</p>
 
-                                    <?php
-                                    }
-                                    $day = (date("YmdHi", $t));
-                                    $datetime = DateTime::createFromFormat('YmdHi', $day);
-                                    echo $datetime->format('d') . "-";
-                                    echo $datetime->format('M') . "-";
-                                    echo $datetime->format('Y') . "";
+                                        <?php
+                                        }
+                                        $day = (date("YmdHi", $t));
+                                        $datetime = DateTime::createFromFormat('YmdHi', $day);
+                                        echo $datetime->format('d') . "-";
+                                        echo $datetime->format('M') . "-";
+                                        echo $datetime->format('Y') . "";
 
 
-                                    ?>
+                                        ?>
 
-                                    <a href="<?php echo base_url('welcome/addCart/')  . $cart->proid ?>" class="btn btn-success" style="    margin: 10px; height:50px">buy again</a>
+                                    </div>
+                                    <div class="part1">
 
+                                        <a href="<?php echo base_url('welcome/addCart/')  . $cart->proid ?>" class="btn btn-success" style="    margin: 10px; height:50px; display:block;">Buy Now</a>
+                                    </div>
                                 </div>
                             </div>
 

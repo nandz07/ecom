@@ -11,169 +11,197 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 	<style>
-        .btn:hover{
-            
-            color:green;
+		
+		.btn:hover {
+
+
 			transition: 0.5s all ease;
 			box-shadow: inset 200px 0 0 0 whitesmoke;
 			border: none;
-			
-			
-        }
-		.nav-link:hover{
-			
+			color: green;
+
+
+		}
+
+		.p1:hover {
+			color: blue;
+		}
+
+		.nav-link:hover {
+
 			transition: 0.5s all ease;
 			border-bottom: 3px solid #f33f3f;
 		}
-		.card-group:hover{
+
+		.card-group:hover {
 			transform: scale(1.05);
 			transition: 0.3s all ease;
 			color: red;
-			
+
 		}
+
+		.card-group.op1:hover {
+
+			color: blue;
+		}
+
 		/* .navbar{
 			height: 60px;
 		} */
-		
-    </style>
+	</style>
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-info">
-		<a class="navbar-brand" href="<?php echo base_url('welcome/admin'); ?>">BRQ</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+	<div class="start">
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="<?php echo base_url('welcome/'); ?>"><i class="fa fa-home"></i> <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Products	</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="<?php echo base_url('welcome/laptop/'); ?>">Laptop</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="<?php echo base_url('welcome/mobile/'); ?>">Mobile Phone</a>
-					</div>
-				</li>
-				<li class="nav-item active">
-					<?php
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+				<a class="navbar-brand" href="<?php echo base_url('welcome/admin'); ?>">BRQ</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-					if (isset($_SESSION['username'])) {
-
-					?>
-
-						<a class="nav-link" href="<?php echo base_url('welcome/userLogout'); ?>">Logout<span class="sr-only">(current)</span></a>
-					<?php
-					}
-					?>
-
-				</li>
-				<li class="nav-item active">
-					<?php
-
-					if (isset($_SESSION['username'])) {
-
-					?>
-
-						<a class="nav-link" href="<?php echo base_url('welcome/cartHistory'); ?>">Cart History<span class="sr-only">(current)</span></a>
-					<?php
-					}
-					?>
-
-				</li>
-				<li class="nav-item active">
-
-
-					<a class="nav-link" href="<?php echo base_url('welcome/cartDetails'); ?>"><span ><i class="fa fa-shopping-cart"></i></span></a>
-
-
-				</li>
-
-			</ul>
-
-			<form class="form-inline my-2 my-lg-0">
-				<ul class="navbar-nav mr-auto">
-					
-					<li class="nav-item active dropdown">
-						<?php
-
-						if (isset($_SESSION['username'])) {
-
-						?>
-						
-
-							<a class="nav-link" href="" style="color:white;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
-						<?php
-						} else {
-						?>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="<?php echo base_url('welcome/'); ?>"><i class="fa fa-home"></i> <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Link</a>
+						</li>
+						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class='far fas fa-user-alt' style='font-size:24px'></i></a>
+								Products </a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<?php $flag = 1;
-																echo base_url('welcome/login/') . $flag; ?>">Log in </a>
+								<a class="dropdown-item" href="<?php echo base_url('welcome/laptop/'); ?>">Laptop</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="<?php echo base_url('welcome/signup/'); ?>">sign up</a>
+								<a class="dropdown-item" href="<?php echo base_url('welcome/mobile/'); ?>">Mobile Phone</a>
 							</div>
-						<?php } ?>
-					</li>
-				</ul>
+						</li>
+						<li class="nav-item active">
+							<?php
 
-			</form>
+							if (isset($_SESSION['username'])) {
 
+							?>
+
+								<a class="nav-link" href="<?php echo base_url('welcome/userLogout'); ?>">Logout<span class="sr-only">(current)</span></a>
+							<?php
+							}
+							?>
+
+						</li>
+						<li class="nav-item active">
+							<?php
+
+							if (isset($_SESSION['username'])) {
+
+							?>
+
+								<a class="nav-link" href="<?php echo base_url('welcome/cartHistory'); ?>">Cart History<span class="sr-only">(current)</span></a>
+							<?php
+							}
+							?>
+
+						</li>
+						<li class="nav-item active">
+
+
+							<a class="nav-link" href="<?php echo base_url('welcome/cartDetails'); ?>"><span><i class="fa fa-shopping-cart"></i></span></a>
+
+
+						</li>
+
+					</ul>
+
+					<form class="form-inline my-2 my-lg-0">
+						<ul class="navbar-nav mr-auto">
+
+							<li class="nav-item active dropdown">
+								<?php
+
+								if (isset($_SESSION['username'])) {
+
+								?>
+
+
+									<a class="nav-link" href="" style="color:white;"><?php echo $_SESSION['username']; ?><span class="sr-only">(current)</span></a>
+								<?php
+								} else {
+								?>
+									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class='far fas fa-user-alt' style='font-size:24px'></i></a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="<?php $flag = 1;
+																		echo base_url('welcome/login/') . $flag; ?>">Log in </a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="<?php echo base_url('welcome/signup/'); ?>">sign up</a>
+									</div>
+								<?php } ?>
+							</li>
+						</ul>
+
+					</form>
+
+				</div>
+			</nav>
+		</header>
+
+		<!-- <section>
+		<div class="banner" style="width: auto;">
+		<img src="<-?php echo base_url("banner-img/banner-2-mack.jpg"); ?>" alt="" style="    width: -webkit-fill-available;    position: fixed;">		
 		</div>
-	</nav>
-	<form method="post" action="">
-		<div class="container mt-5 ">
-			<div class="row ">
+	</section> -->
+		<form method="post" action="">
+			<div class="container mt-5 ">
+				<div class="row ">
 
 
-				<?php
-				foreach ($data as $products) {
-				?>
-					<div class="col-3 col-md-3">
-						<div class="card-group">
-							<div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
-								<img class="card-img-top  " src='<?php echo base_url("$products->image"); ?>' alt="" width="200" height="200">
+					<?php
+					foreach ($data as $products) {
+					?>
+						<div class="col-3 col-md-3">
+							<div class="card-group">
+								<div class="card card-column" style="width: 18rem;    margin-bottom: 20px;">
+									<img class="card-img-top  " src='<?php echo base_url("$products->image"); ?>' alt="" width="200" height="200">
 
-								<h5 class="card-title"><?php
-														echo $products->title;
-														?></h5>
-								<p class="lprce">Rs <?php
-													echo $products->price;
-													?></p>
-							
-								<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-primary" style="    margin: 10px;">more</a>
+									<h5 class="card-title"><?php
+															echo $products->title;
+															?></h5>
+									<p class="lprce">Rs <?php
+														echo $products->price;
+														?></p>
 
-								
+									<a href="<?php echo base_url('welcome/details/')  . $products->id ?>" class="btn btn-primary" style="    margin: 10px; display:block;">
+										<p class="p1" style="margin: 0; padding:0%;">more</p>
+									</a>
 
 
 
-								<a href="<?php echo base_url('welcome/addCart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px;">Add to <span><i class="fa fa-shopping-cart"></i></span></a>
 
+
+									<a href="<?php echo base_url('welcome/addCart/')  . $products->id ?>" class="btn btn-success" style="    margin: 10px; display:block;">
+										<p class="p2" style="margin: 0; padding:0%;">Add to <span><i class="fa fa-shopping-cart"></i></p></span>
+									</a>
+
+								</div>
 							</div>
+
+
 						</div>
-
-
-					</div>
-				<?php
-				}
-				?>
+					<?php
+					}
+					?>
+				</div>
 			</div>
-		</div>
-		  <div class="progress">
-      <div class="determinate" style="width: 70%">
-	
+			<div class="progress">
+				<div class="determinate" style="width: 70%">
+
+				</div>
+			</div>
+
+		</form>
 	</div>
-  </div>
-        
-	</form>
 </body>
 
 </html>
