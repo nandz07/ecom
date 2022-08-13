@@ -55,7 +55,7 @@
 	<div class="start">
 
 		<header>
-			<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+			<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info">
 				<a class="navbar-brand" href="<?php echo base_url('welcome/admin'); ?>">BRQ</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -152,7 +152,7 @@
 		<img src="<-?php echo base_url("banner-img/banner-2-mack.jpg"); ?>" alt="" style="    width: -webkit-fill-available;    position: fixed;">		
 		</div>
 	</section> -->
-		<form method="post" action="">
+		<form method="post" action="" style="    margin-top: 100px;">
 			<div class="container mt-5 ">
 				<div class="row ">
 
