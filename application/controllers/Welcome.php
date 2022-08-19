@@ -64,13 +64,13 @@ class Welcome extends CI_Controller
 	}
 	public function login($flag)
 	{
-		
-		if($flag == 1){
-			$f["f"]=1;
-		$this->load->view("login",$f);
-		}else{
-			$f["f"]=2;
-			$this->load->view("login",$f);
+
+		if ($flag == 1) {
+			$f["f"] = 1;
+			$this->load->view("login", $f);
+		} else {
+			$f["f"] = 2;
+			$this->load->view("login", $f);
 		}
 	}
 	public function signup()
@@ -79,9 +79,9 @@ class Welcome extends CI_Controller
 	}
 	public function user()
 	{
-		$flag=NULL;
+		$flag = NULL;
 
-		
+
 
 		$firstName = $this->input->post("firstName");
 		$password = $this->input->post("password");
@@ -97,112 +97,112 @@ class Welcome extends CI_Controller
 	{
 		session_start();
 		$f = $this->input->post("f");
-		if($f == 1){
-		$firstName = $this->input->post("firstName");
-		$password = $this->input->post("password");
+		if ($f == 1) {
+			$firstName = $this->input->post("firstName");
+			$password = $this->input->post("password");
 
-		$this->db->select("*");
-		$this->db->from("user");
-		$this->db->where("firstName", $firstName);
-		$this->db->where("password", $password);
-		$query = $this->db->get("");
-		$res = $query->result();
-
-
-		$db_firstName = NULL;
-		$db_password = NULL;
+			$this->db->select("*");
+			$this->db->from("user");
+			$this->db->where("firstName", $firstName);
+			$this->db->where("password", $password);
+			$query = $this->db->get("");
+			$res = $query->result();
 
 
-		foreach ($res as $details) {
-			$db_firstName = $details->firstName;
-			$db_password = $details->password;
-			$db_id = $details->id;
-		}
+			$db_firstName = NULL;
+			$db_password = NULL;
+
+
+			foreach ($res as $details) {
+				$db_firstName = $details->firstName;
+				$db_password = $details->password;
+				$db_id = $details->id;
+			}
 
 
 
 
-		if (isset($_SESSION['username'])) {
+			if (isset($_SESSION['username'])) {
 ?>
-			<script>
-				alert("you didn't logout")
-				window.location.href = "<?php echo base_url('welcome/') ?>";
-			</script>
-		<?php
-		} elseif ($db_firstName == $firstName && $db_password == $password) {
-			$_SESSION['username'] = $db_firstName;
-			$_SESSION['userid'] = $db_id;
-			$this->db->set("userid", $db_id);
-			$this->db->where("userid", NULL);
-			$this->db->update("cart");
-		?>
-			<script>
-				alert("login sucess 1")
-				window.location.href = "<?php echo base_url('welcome/') ?>";
-			</script>
-		<?php
+				<script>
+					alert("you didn't logout")
+					window.location.href = "<?php echo base_url('welcome/') ?>";
+				</script>
+			<?php
+			} elseif ($db_firstName == $firstName && $db_password == $password) {
+				$_SESSION['username'] = $db_firstName;
+				$_SESSION['userid'] = $db_id;
+				$this->db->set("userid", $db_id);
+				$this->db->where("userid", NULL);
+				$this->db->update("cart");
+			?>
+				<script>
+					alert("login sucess 1")
+					window.location.href = "<?php echo base_url('welcome/') ?>";
+				</script>
+			<?php
+			} else {
+			?>
+				<script>
+					alert("Invalid user name or pasword !")
+					window.location.href = "<?php echo base_url('welcome/login') ?>";
+				</script>
+			<?php
+			}
 		} else {
-		?>
-			<script>
-				alert("Invalid user name or pasword !")
-				window.location.href = "<?php echo base_url('welcome/login') ?>";
-			</script>
-		<?php
+			$firstName = $this->input->post("firstName");
+			$password = $this->input->post("password");
+
+			$this->db->select("*");
+			$this->db->from("user");
+			$this->db->where("firstName", $firstName);
+			$this->db->where("password", $password);
+			$query = $this->db->get("");
+			$res = $query->result();
+
+
+			$db_firstName = NULL;
+			$db_password = NULL;
+
+
+			foreach ($res as $details) {
+				$db_firstName = $details->firstName;
+				$db_password = $details->password;
+				$db_id = $details->id;
+			}
+
+
+
+
+			if (isset($_SESSION['username'])) {
+			?>
+				<script>
+					alert("you didn't logout")
+					window.location.href = "<?php echo base_url('welcome/') ?>";
+				</script>
+			<?php
+			} elseif ($db_firstName == $firstName && $db_password == $password) {
+				$_SESSION['username'] = $db_firstName;
+				$_SESSION['userid'] = $db_id;
+				//....add to cart and update user id NILL to __ from not user login to login while place order....
+				$this->db->set("userid", $db_id);
+				$this->db->where("userid", NULL);
+				$this->db->update("cart");
+			?>
+				<script>
+					alert("login sucess 2")
+					window.location.href = "<?php echo base_url('welcome/') ?>";
+				</script>
+			<?php
+			} else {
+			?>
+				<script>
+					alert("Invalid user name or pasword !")
+					window.location.href = "<?php echo base_url('welcome/login') ?>";
+				</script>
+			<?php
+			}
 		}
-	}else{
-		$firstName = $this->input->post("firstName");
-		$password = $this->input->post("password");
-
-		$this->db->select("*");
-		$this->db->from("user");
-		$this->db->where("firstName", $firstName);
-		$this->db->where("password", $password);
-		$query = $this->db->get("");
-		$res = $query->result();
-
-
-		$db_firstName = NULL;
-		$db_password = NULL;
-
-
-		foreach ($res as $details) {
-			$db_firstName = $details->firstName;
-			$db_password = $details->password;
-			$db_id = $details->id;
-		}
-
-
-
-
-		if (isset($_SESSION['username'])) {
-?>
-			<script>
-				alert("you didn't logout")
-				window.location.href = "<?php echo base_url('welcome/') ?>";
-			</script>
-		<?php
-		} elseif ($db_firstName == $firstName && $db_password == $password) {
-			$_SESSION['username'] = $db_firstName;
-			$_SESSION['userid'] = $db_id;
-			//....add to cart and update user id NILL to __ from not user login to login while place order....
-			$this->db->set("userid", $db_id);
-			$this->db->where("userid", NULL);
-			$this->db->update("cart");
-		?>
-			<script>
-				alert("login sucess 2")
-				window.location.href = "<?php echo base_url('welcome/') ?>";
-			</script>
-		<?php
-		} else {
-		?>
-			<script>
-				alert("Invalid user name or pasword !")
-				window.location.href = "<?php echo base_url('welcome/login') ?>";
-			</script>
-		<?php
-		}
-	}
 	}
 
 	public function userLogout()
@@ -211,7 +211,7 @@ class Welcome extends CI_Controller
 		if (isset($_SESSION['username'])) {
 			unset($_SESSION["username"]);
 			unset($_SESSION["userid"]);
-		?>
+			?>
 			<script>
 				alert("Logout successfully !")
 				window.location.href = "<?php echo base_url('welcome/') ?>";
@@ -456,7 +456,7 @@ class Welcome extends CI_Controller
 				alert("deleted ");
 				window.location.href = '<?php echo base_url('welcome/adminDtails'); ?>'
 			</script>
-			<?php
+<?php
 		}
 	}
 	//.................cart..........
@@ -465,8 +465,8 @@ class Welcome extends CI_Controller
 	{
 		session_start();
 		//.......userid
-		
-			$this->db->select("*");
+
+		$this->db->select("*");
 		$this->db->from("user");
 		$this->db->where("firstName", $_SESSION['username']);
 		$sql = $this->db->get("");
@@ -483,40 +483,38 @@ class Welcome extends CI_Controller
 		foreach ($data1 as $ans) {
 			$c_db_proid = $ans->proid;
 			$c_db_status = $ans->status;
-
-			
 		}
 
 		//.........cart add
 		if ($data1 != NULL) {
 			if ($c_db_proid == $id) {
 				//current user with alredy inserted data
-				if($c_db_status == 1){  
-				
-				$this->db->select("*");
-				$this->db->from("cart");
-				$this->db->where("userid",  $u_db_userid);
-				$this->db->where("proid", $id);
-				$sql = $this->db->get("");
-				$data = $sql->result();
-				foreach ($data as $ans) {
-					$db_qnt = $ans->quantity;
+				if ($c_db_status == 1) {
+
+					$this->db->select("*");
+					$this->db->from("cart");
+					$this->db->where("userid",  $u_db_userid);
+					$this->db->where("proid", $id);
+					$sql = $this->db->get("");
+					$data = $sql->result();
+					foreach ($data as $ans) {
+						$db_qnt = $ans->quantity;
+					}
+					$this->db->set("quantity", ++$db_qnt);
+					$this->db->where("userid",  $u_db_userid);
+					$this->db->where("proid",  $c_db_proid);
+					$this->db->update("cart");
+					redirect(base_url('welcome/'));
+				} else {
+					$qnt = 0;
+					$new = [
+						"userid" => $u_db_userid,
+						"proid" => $id,
+						"quantity" => ++$qnt
+					];
+					$this->db->insert("cart", $new);
+					redirect(base_url('welcome/'));
 				}
-				$this->db->set("quantity", ++$db_qnt);
-				$this->db->where("userid",  $u_db_userid);
-				$this->db->where("proid",  $c_db_proid);
-				$this->db->update("cart");
-				redirect(base_url('welcome/'));
-			}else{
-				$qnt = 0;
-				$new = [
-					"userid" => $u_db_userid,
-					"proid" => $id,
-					"quantity" => ++$qnt
-				];
-				$this->db->insert("cart", $new);
-				redirect(base_url('welcome/'));
-			}
 			} else {
 				//alredy inserted user with new product
 				$qnt = 0;
@@ -539,42 +537,90 @@ class Welcome extends CI_Controller
 			$this->db->insert("cart", $new);
 			redirect(base_url('welcome/'));
 		}
-		
-		
 	}
-	public function cartDetails()
-	{
-		session_start();
-		if(isset($_SESSION['username'])){
-		$this->db->select("*");
-		$this->db->from("user");
-		$this->db->where("firstName", $_SESSION['username']);
-		$sql = $this->db->get("");
-		$data = $sql->result();
-		foreach ($data as $ans) {
-			$u_db_userid = $ans->id;
-		}
+	// public function cartDetails()
+	// {
+	// 	session_start();
+	// 	if (isset($_SESSION['username'])) {
+	// 		$this->db->select("*");
+	// 		$this->db->from("user");
+	// 		$this->db->where("firstName", $_SESSION['username']);
+	// 		$sql = $this->db->get("");
+	// 		$data = $sql->result();
+	// 		foreach ($data as $ans) {
+	// 			$u_db_userid = $ans->id;
+	// 		}
 
-		$this->db->select("*");
-		$this->db->from("cart");
-		$this->db->where("userid", $u_db_userid);
-		$sql1 = $this->db->get("");
-		$ans = $sql1->result();
-		$data1["data1"] = $ans;
-		//var_dump($data1);
+	// 		$this->db->select("*");
+	// 		$this->db->from("cart");
+	// 		$this->db->where("userid", $u_db_userid);
+	// 		$sql1 = $this->db->get("");
+	// 		$ans = $sql1->result();
+	// 		$data["data1"] = $ans;
+	// 		//var_dump($data1);
+	// 		foreach ($ans as $ans) {
+	// 			$db_p_id = $ans->proid;
+				
+	// 			$this->db->select("*");
+	// 			$this->db->from("products");
+	// 			$this->db->where("id", $db_p_id);
+	// 			$sql1 = $this->db->get("");
+	// 			$ans2 = $sql1->result();
+	// 			$data["data2"] = $ans2;
+	// 		}
 
-		$this->load->view("cart_details", $data1);
-	}else{
-		$this->db->select("*");
-		$this->db->from("cart");
-		$this->db->where("userid", NULL);
-		$sql1 = $this->db->get("");
-		$ans = $sql1->result();
-		$data1["data1"] = $ans;
-		//var_dump($data1);
 
-		$this->load->view("cart_details", $data1);
-	}
+
+	// 		$this->load->view("cart_details", $data);
+	// 	} else {
+	// 		$this->db->select("*");
+	// 		$this->db->from("cart");
+	// 		$this->db->where("userid", NULL);
+	// 		$sql1 = $this->db->get("");
+	// 		$ans = $sql1->result();
+	// 		$data1["data1"] = $ans;
+	// 		//var_dump($data1);
+
+
+			
+	// 		// $sql="SELECT products.title, products.price, products.brandname,products.image,products.description,cart.status,cart.quantity
+	// 		// FROM products
+	// 		// INNER JOIN cart ON products.id=cart.proid;";
+	// 		// $query = $this->db->query($sql);
+	// 		// $ans = $query->result();
+	// 		// $data["data1"] = $ans;
+
+	// 		// 	var_dump($data);
+	// 		$this->load->view("cart_details", $data1);
+	// 	}
+	// }
+		public function cartDetails(){
+			session_start();
+			if(isset($_SESSION['userid'])){
+				$this->db->select('*');
+				$this->db->from('products');
+				$this->db->join('cart','cart.proid = products.id');
+				$this->db->where('userid',$_SESSION['userid']);
+				$sql=$this->db->get();
+				$data['data']=$sql->result();
+				$this->load->view('cartDetails',$data);
+				// foreach($data as $data){
+				// 	if ($data->userid == $_SESSION['userid'])
+				// 	{
+				// 		var_dump($data);
+				// 	}
+				//$this->load->view('cartDetails',$data);
+				
+			}else{
+				$this->db->select('*');
+				$this->db->from('products');
+				$this->db->join('cart','cart.proid = products.id');
+				$this->db->where('userid',NULL);
+				$sql=$this->db->get();
+				$data['data']=$sql->result();
+				$this->load->view('cartDetails',$data);
+			}
+
 	}
 	public function increaseCartPro($id)
 	{
@@ -628,86 +674,84 @@ class Welcome extends CI_Controller
 	public function purchase()
 	{
 		session_start();
-		if(isset($_SESSION['username'])){
+		if (isset($_SESSION['username'])) {
 			$t = $this->input->post("total");
 			$data["hai"] = $t;
-	
+
 			$this->load->view("purchase_details", $data);
-		}elseif($_SESSION['username'] == NULL){
-			$flag =2;
-			redirect(base_url('welcome/login/').$flag);
+		} elseif ($_SESSION['username'] == NULL) {
+			$flag = 2;
+			redirect(base_url('welcome/login/') . $flag);
 		}
-		
 	}
 	public function placeOrder()
 	{
 		session_start();
-		$t=time();
-		if(isset($_SESSION['username'])){
+		$t = time();
+		if (isset($_SESSION['username'])) {
 
-		
-		$firstName = $this->input->post("firstName");
-		$address = $this->input->post("address");
 
-		$emailAddress = $this->input->post("emailAddress");
-		$phoneNumber = $this->input->post("phoneNumber");
+			$firstName = $this->input->post("firstName");
+			$address = $this->input->post("address");
 
-		$payment = $this->input->post("payment");
-		$total = $this->input->post("total");
-		$uid = $this->input->post("uid");
+			$emailAddress = $this->input->post("emailAddress");
+			$phoneNumber = $this->input->post("phoneNumber");
 
-		$this->db->select("*");
-		$this->db->from("user");
-		$this->db->where("firstName", $_SESSION['username']);
-		$sql = $this->db->get("");
-		$data = $sql->result();
-		foreach ($data as $ans) {
-			$u_db_userid = $ans->id;
+			$payment = $this->input->post("payment");
+			$total = $this->input->post("total");
+			$uid = $this->input->post("uid");
+
+			$this->db->select("*");
+			$this->db->from("user");
+			$this->db->where("firstName", $_SESSION['username']);
+			$sql = $this->db->get("");
+			$data = $sql->result();
+			foreach ($data as $ans) {
+				$u_db_userid = $ans->id;
+			}
+
+			$new = [
+				"firstName" => $firstName,
+				"address" => $address,
+				"emailAddress" => $emailAddress,
+				"phoneNumber" => $phoneNumber,
+				"payment" => $payment,
+				"total" => $total,
+				"uid" => $u_db_userid,
+				"time" => $t
+			];
+			$res = $this->db->insert("order", $new);
+
+
+
+			$this->db->select("*");
+			$this->db->from("user");
+			$this->db->where("firstName", $_SESSION['username']);
+			$sql = $this->db->get("");
+			$data = $sql->result();
+			foreach ($data as $ans) {
+				$u_db_userid = $ans->id;
+			}
+
+
+			$this->db->set("status", "2");
+			$this->db->set("time", $t);
+
+			$this->db->where("userid", $u_db_userid);
+			$this->db->where("status", "1");
+
+			$this->db->update("cart");
+
+			redirect(base_url('welcome/cartDetails'));
+		} elseif ($_SESSION['username'] == NULL) {
+			$flag = 2;
+			redirect(base_url('welcome/login/') . $flag);
 		}
-
-		$new = [
-			"firstName" => $firstName,
-			"address" => $address,
-			"emailAddress" => $emailAddress,
-			"phoneNumber" => $phoneNumber,
-			"payment" => $payment,
-			"total" => $total,
-			"uid" => $u_db_userid,
-			"time"=>$t
-		];
-		$res = $this->db->insert("order", $new);
-
-
-
-		$this->db->select("*");
-		$this->db->from("user");
-		$this->db->where("firstName", $_SESSION['username']);
-		$sql = $this->db->get("");
-		$data = $sql->result();
-		foreach ($data as $ans) {
-			$u_db_userid = $ans->id;
-		}
-		
-
-		$this->db->set("status", "2");
-		$this->db->set("time", $t);
-		
-		$this->db->where("userid", $u_db_userid);
-		$this->db->where("status", "1");
-
-		$this->db->update("cart");
-
-		redirect(base_url('welcome/cartDetails'));
-	}elseif($_SESSION['username'] == NULL){
-		$flag =2;
-		redirect(base_url('welcome/login/').$flag);
-	}
-
 	}
 	public function adminOrder()
 	{
 		session_start();
-		
+
 		$this->db->select("*");
 		$this->db->from("order");
 		$sql = $this->db->get("");
@@ -725,7 +769,7 @@ class Welcome extends CI_Controller
 		$data = $sql->result();
 		foreach ($data as $ans) {
 			$o_db_userid = $ans->uid;
-			$o_db_time =$ans->time;
+			$o_db_time = $ans->time;
 		}
 
 
@@ -746,31 +790,32 @@ class Welcome extends CI_Controller
 		echo $userid;
 
 
-		$this->db->set("status","3");
+		$this->db->set("status", "3");
 		$this->db->where("userid",  $userid);
 		$this->db->where("time",  $t);
 		$this->db->where("status",  "2");
 		$this->db->update("cart");
 
-		$this->db->set("status","3");
+		$this->db->set("status", "3");
 		$this->db->where("uid",  $userid);
 		$this->db->where("time",  $t);
 		//$this->db->where("status",  "0");
 		$this->db->update("order");
 
 		redirect(base_url('welcome/adminOrder'));
-		
 	}
-	public function clearCancelledorder(){
+	public function clearCancelledorder()
+	{
 		$this->db->from("cart");
-		$this->db->where("status",4);
+		$this->db->where("status", 4);
 		$this->db->delete();
 
 		$this->db->from("cart");
-		$this->db->where("status",4);
+		$this->db->where("status", 4);
 		redirect(base_url('welcome/adminOrder'));
 	}
-	public function cancelCartPro($id){
+	public function cancelCartPro($id)
+	{
 		session_start();
 		//status 4 in cart =>cancelled project
 
@@ -781,7 +826,7 @@ class Welcome extends CI_Controller
 		$data = $sql->result();
 		foreach ($data as $ans) {
 			$db_qnt = $ans->quantity;
-			$db_proid=$ans->proid;
+			$db_proid = $ans->proid;
 		}
 		$this->db->select("*");
 		$this->db->from("order");
@@ -793,38 +838,38 @@ class Welcome extends CI_Controller
 		}
 		$this->db->select("*");
 		$this->db->from("products");
-		$this->db->where("id",$db_proid );
+		$this->db->where("id", $db_proid);
 		$sql = $this->db->get("");
 		$data = $sql->result();
 		foreach ($data as $ans) {
 			$db_price = $ans->price;
 		}
 
-		$cancelled=$db_total-($db_price*$db_qnt);
+		$cancelled = $db_total - ($db_price * $db_qnt);
 
-		$this->db->set("total",$cancelled);
+		$this->db->set("total", $cancelled);
 		$this->db->where("uid", $_SESSION['userid']);
 		$this->db->where("status", NULL);
 		$this->db->update("order");
 
-		
 
-		$this->db->set("status","4");
+
+		$this->db->set("status", "4");
 		$this->db->where("id",  $id);
 		$this->db->update("cart");
 		redirect(base_url('welcome/cartDetails'));
 	}
-	public function cartHistory(){
+	public function cartHistory()
+	{
 		session_start();
 
 		$this->db->select("*");
 		$this->db->from("cart");
-		$this->db->where("userid",$_SESSION['userid']);
+		$this->db->where("userid", $_SESSION['userid']);
 
-		$sql=$this->db->get("");
-		$data["data"]=$sql->result();
+		$sql = $this->db->get("");
+		$data["data"] = $sql->result();
 
-		$this->load->view("cart_history",$data);
-
+		$this->load->view("cart_history", $data);
 	}
 }
