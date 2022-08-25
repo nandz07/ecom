@@ -254,7 +254,7 @@ class Welcome extends CI_Controller
 		$res = $query->result();
 
 
-		$db_firstName = NULL;
+		$db_firstName = 1;
 		$db_password = NULL;
 
 

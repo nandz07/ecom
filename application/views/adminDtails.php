@@ -102,6 +102,7 @@
 
                         <td>
                             <a class="edit" title="Edit" data-toggle="tooltip" href="<?php echo base_url('welcome/edit/') . $std->id; ?>"><i class="material-icons"></i></a>
+                            <input type="button" name="edit" value="edit" id="<?php echo $std->id; ?>" >
                             <a class="delete" title="Delete" data-toggle="tooltip" href="<?php echo base_url('welcome/delete/') . $std->id; ?>"><i class="material-icons"></i></a>
                         </td>
                     </tr>
